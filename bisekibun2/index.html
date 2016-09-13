@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+  <HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <Title>微分積分学II</Title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+<!-- <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" /> -->
+<!-- <\!-- for mathjax -\-> -->
+<!-- <script type="text/javascript" -->
+<!--   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"> -->
+<!-- </script> -->
+<!-- <script type="text/x-mathjax-config"> -->
+<!--   MathJax.Hub.Config({ -->
+<!--     tex2jax: { -->
+<!--       inlineMath: [ ['$','$'], ["\\(","\\)"] ], -->
+<!--       displayMath: [ ['$$','$$'], ["\\[","\\]"] ] -->
+<!--     } -->
+<!--   }); -->
+<!-- </script> -->
+<!-- <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" /> -->
+  </HEAD>
+https://dl.dropboxusercontent.com/u/264018340/bisekibun2/index-j.html
+<hr>
+
+    <H1> 微分積分学II</H1>
+    <h4>
+    2015年度中部大学講義（秋）<BR>
+    水曜 5〜6限　9号館 2階 921<BR>
+    木曜 9〜10限　9号館 2階 921<BR>
+    担当：<a href="../index-j.html">奥島 輝昭</a><BR>
+    </h4>
+<p>
+<font size=-1>
+Last-updated: <2016/01/13 17:33:45>
+</font>
+</p>
+
+
+<hr>	
+<h3>目的</h3> 
+本講義の目的は、
+<ol>
+<li> 偏微分法（6章）
+<li> 偏微分法の応用（7章）
+<li> 重積分とその応用(8章)
+<li> 微分方程式(9章)
+</ol>
+の計算規則になれ、
+具体的な計算ができるようになることを目指します。<br>
+ここで、( )の中の章番号は教科書の章番号です。
+
+<hr>	
+<h3>概要:</h3> 
+本講義では板書による説明の後、適宜例題演習を行います。
+<hr>
+<h3>教科書</h3>
+教科書は、
+<a href="http://www.amazon.co.jp/基礎から学び考える力をつける微分積分学-奥村-吉孝/dp/4563004804/ref=sr_1_3?ie=UTF8&qid=1411183390&sr=8-3&keywords=奥村吉孝">
+奥村吉孝著「基礎から学び考える力をつける微積分学」
+</a>です。
+授業時の演習に利用するので各自持参すること。
+
+<hr>
+<h3>全般的な参考文献：</h3>
+
+<ol>
+<!-- <li> -->
+<!-- L.S. ポントリャーギン -->
+<!-- 「やさしい微積分」 (ちくま学芸文庫)  -->
+<!-- <li> -->
+<!-- 福田, 鈴木, 安岡, 黒崎  -->
+<!-- 「詳解微積分演習 I (大学課程数学演習シリーズ 2)」 -->
+<!-- (共立出版) -->
+<li>
+小林昭七,
+「微積分読本 (多変数)」
+(裳華房)
+</ol>
+<!-- 1はわかりやすく非常にためになります。 -->
+<!-- いろいろな問題にチャレンジしたい人には、2の演習書がオススメです。 -->
+<hr>
+<h3>成績評価</h3>
+レポート・中間テスト(約50%)と
+期末テスト(約50%)の成績に加えて、
+宿題や出席状況も考慮して総合的に評価します。<br>
+
+<!-- 小テストは内容の切りのいいところで実施します。 -->
+テスト範囲などは授業中に連絡します。<br>
+
+<!-- <a href="./20140616.pdf">月曜3--4時限 第２回小テスト解答例 （6月16日実施）</a> <br> -->
+
+<!-- <a href="./20140617.pdf">火曜7--8時限 第２回小テスト解答例 （6月17日実施）</a>  -->
+
+
+<!-- <a href="./biseki_kimatu.pdf">期末解答例 （2月2日実施）</a> -->
+
+
+
+
+
+
+<hr>
+<h3>レポートの連絡</h3>
+<ul>
+<li>[2015/9/23出題レポート1]
+教科書の問題6.1(1),(2)
+<!-- , 問題2.24(2),(4)<br> -->
+<!-- 余力のある人は -->
+<!-- 問題2.24(6),(7)も -->
+<li>[2015/9/24出題レポート2]<br>
+(1) \( z=x^4+\frac{x^2y}{2}-y^3 \)のとき、\( z_x,\ z_y \)を求める。<br>
+(2) \(z=\sqrt{x^2-6xy+y^3}\)のとき、\(z_x,\ z_y\)を求める。<br>
+(3) \(u=\sin(x^2y^2z^2)\)のとき、\(u_x,\ u_y,\ u_z\)を求める。
+
+<li>[2015/9/30出題レポート3]<br>
+\(z=3x^3-2x^2y-4xy^2\)のとき、2次偏導関数を求める。
+
+<li>[2015/10/7出題レポート4]<br>
+<!-- 極座標表示(\(x=r\cos\theta,\ y=r\sin \theta\))で、 -->
+<!-- 関数\(z=f(x,y)=f(r\cos\theta,r\sin\theta)\)の偏微分 -->
+<!-- \( -->
+<!-- \frac{\partial z}{\partial r}, -->
+<!-- \frac{\partial z}{\partial \theta} -->
+<!-- \)を求め、 -->
+<!-- \( -->
+<!-- \frac{\partial z}{\partial x}, -->
+<!-- \frac{\partial z}{\partial y} -->
+<!-- \) -->
+<!-- で表す。 -->
+教科書のp.157 (6.16)式を示す。
+<br>
+さらに、これを利用して、
+\(
+\left(\frac{\partial z}{\partial r}\right)^2+
+\frac1{r^2}\left(\frac{\partial z}{\partial \theta}\right)^2
+\)を計算する。
+
+<li>[2015/10/8出題レポート5]<br>
+問題6.12
+
+<li>[2015/10/14出題レポート6]<br>
+(a)座標変換\(u=xy,\ v=x\)を用いて、
+偏微分方程式\(
+x\frac{\partial z}{\partial x}=
+y\frac{\partial z}{\partial y}
+\)の解が<br>
+\(z=f(xy)\)　(ここで\(f\)は任意の微分可能な関数)
+であることを示す。<br>
+
+(b)座標変換\(u=x^2-y^2,\ v=x+y\)を用いて、
+偏微分方程式\(
+y\frac{\partial z}{\partial x}+
+x\frac{\partial z}{\partial y}=0
+\)の解が<br>
+\(z=f(x^2-y^2)\)　(ここで\(f\)は任意の微分可能な関数)
+であることを示す。
+
+<li>[2015/10/29出題レポート7]<br>
+問題7.4 (1), (3)を解いて、極大、極小、鞍点のどれか答える。
+
+<li>[2015/11/4出題レポート8]<br>
+問題7.6 (1)
+
+<li>[2015/11/11 中間レポート](<a href="./rep_mid.pdf">pdf</a>)<br>
+友人との議論や、学習支援室等を利用してもいい。
+締め切り11/26(木)厳守
+
+
+<li>[2016/1/6出題レポート9]<br>
+問題8.7 (4),(6)
+締め切り1/13の授業時まで<br>
+
+<li>[2016/1/7出題レポート10]<br>
+問題9.1 (2)<br>
+
+<li>[2016/1/13出題レポート11]<br>
+問題9.2 (3), (5), (9)<br>
+締め切り次回の授業時まで<br>
+
+
+
+
+</ul>
+
+<hr>
+<h3>テスト連絡</h3>
+<ul>
+
+<!-- <li>[2015/5/20小テスト1]範囲：教科書の第2章<br> -->
+<!-- 教科書の例題、問題、レポート問題の類題から出題する。 -->
+<!--   <a href="./test1.pdf">問題</a> -->
+
+
+</ul>
+
+
+
+<hr>
+<h3>質問</h3>
+質問、相談、議論等は、
+授業前後の休み時間や、
+オフィスアワー<!-- (個研9号館2階9229, 木曜日7~8時限)にて -->
+（学修支援室にて月曜日7~8時限)にて
+受け付けます。<Br>
+
+<!-- その他、 -->
+<!-- <a href="http://www3.chubu.ac.jp/student_life/support/study_support_room/"> -->
+<!-- 学習支援室 -->
+<!-- </a> -->
+<!-- も利用してください。 -->
+学修支援室とは、
+気軽に個人的に質問をしたり相談できる
+<!-- (要は大学の家庭教師みたいな) -->
+ところです。
+授業日の月曜日から金曜日の午後開講しています。
+スケジュール等詳しい内容は
+<a href="http://www3.chubu.ac.jp/student_life/support/study_support_room/">
+こちらで
+</a>
+ご確認下さい。
+
+
+<hr>
+<h3>連絡先</h3>
+<img src="../profile/email.png" height="22"vapace="0"hspace="0"> 
+<!-- E-mail: okushima_t[ATmark]mac.com の"[ATmark]"を"@"に置き換える -->
+<br>
+ 件名:"微分積分学2(学籍番号123456)：～について"
+
+
+</HTML>
