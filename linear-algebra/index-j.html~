@@ -25,7 +25,7 @@
     </h4>
 <p>
 <font size=-1>
-Last-updated: <2017/05/31 12:45:13>
+Last-updated: <2017/06/07 15:18:13>
 </font>
 </p>
 
@@ -197,28 +197,36 @@ Last-updated: <2017/05/31 12:45:13>
 
 <li>[2017/6/6締め切り 追レポート2]<br>
 対象：中間テスト2の得点が5.9点以下だった人<br>
-提出方法：A4用紙に名前と学籍番号記入し、
-不正解だった問題すべて、途中式も含めて解答する。<br>
-正解：以下参照<br>
-（問1）\( \begin{pmatrix} 21&24& 27 \\ 47&54&61\end{pmatrix}\)<br>
-（問2）\( \begin{pmatrix} 7&10 \\ 15&22\end{pmatrix}\)<br>
-（問3）\( \frac1{-2}\begin{pmatrix} 4&-2 \\ -3&1\end{pmatrix}\)<br>
-（問4）\( 
-\begin{pmatrix} 1&\frac52 \\ \frac52&4\end{pmatrix}+
-\begin{pmatrix} 0&-\frac12 \\ \frac12&0\end{pmatrix}
-\)<br>
-（問5）5<br>
-（問6）\( \begin{pmatrix} 8&0 \\0& 27\end{pmatrix}\)<br>
-（問7）\( \begin{pmatrix} \frac12&0 \\ 0&\frac13\end{pmatrix}\)<br>
+<!-- 提出方法：A4用紙に名前と学籍番号記入し、 -->
+<!-- 不正解だった問題すべて、途中式も含めて解答する。<br> -->
+<!-- 正解：以下参照<br> -->
+<!-- （問1）\( \begin{pmatrix} 21&24& 27 \\ 47&54&61\end{pmatrix}\)<br> -->
+<!-- （問2）\( \begin{pmatrix} 7&10 \\ 15&22\end{pmatrix}\)<br> -->
+<!-- （問3）\( \frac1{-2}\begin{pmatrix} 4&-2 \\ -3&1\end{pmatrix}\)<br> -->
+<!-- （問4）\(  -->
+<!-- \begin{pmatrix} 1&\frac52 \\ \frac52&4\end{pmatrix}+ -->
+<!-- \begin{pmatrix} 0&-\frac12 \\ \frac12&0\end{pmatrix} -->
+<!-- \)<br> -->
+<!-- （問5）5<br> -->
+<!-- （問6）\( \begin{pmatrix} 8&0 \\0& 27\end{pmatrix}\)<br> -->
+<!-- （問7）\( \begin{pmatrix} \frac12&0 \\ 0&\frac13\end{pmatrix}\)<br> -->
 
-（問8）上左の空欄から順に\(-4,6,5\)<br>
-（問9）上左の空欄から順に\(0,-1,0,-3,-2,0\)<br>
-（問10）上左の空欄から順に\(1-2i, 2-3i,3+4i\)<br>
-わからない場合は、
-<a href="http://www3.chubu.ac.jp/student_life/support/study_support_room/">
-学習支援室
-</a>
-の利用をお勧めします。<br>
+<!-- （問8）上左の空欄から順に\(-4,6,5\)<br> -->
+<!-- （問9）上左の空欄から順に\(0,-1,0,-3,-2,0\)<br> -->
+<!-- （問10）上左の空欄から順に\(1-2i, 2-3i,3+4i\)<br> -->
+<!-- わからない場合は、 -->
+<!-- <a href="http://www3.chubu.ac.jp/student_life/support/study_support_room/"> -->
+<!-- 学習支援室 -->
+<!-- </a> -->
+<!-- の利用をお勧めします。<br> -->
+
+<li>[2017/6/13 中間テスト3]教科書の第3章(60頁〜79頁)から出題。<br>
+具体的には<br>
+（問1）行の基本変形を用いた連立一次方程式の解：問題3.1の類題<br>
+（問2）行の基本変形を用いた逆行列の計算：問題3.5の類題<br>
+（問3）Rankの計算：例題3.9の類題<br>
+
+
 
 
 
