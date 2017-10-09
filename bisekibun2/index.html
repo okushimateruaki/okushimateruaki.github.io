@@ -22,7 +22,7 @@ https://okushimateruaki.github.io/bisekibun2/index.html
     </h4>
 <p>
 <font size=-1>
-Last-updated: <2017/10/09 19:16:36>
+Last-updated: <2017/10/09 20:11:26>
 </font>
 </p>
 
@@ -97,7 +97,60 @@ Last-updated: <2017/10/09 19:16:36>
 <li> [2017/10/9出題 レポート1]<br>
 答だけでなく途中計算も含めて、教科書の問題6.16を解き、<br>
 余力がある人は問題6.17（その分加点します）も解くこと。<br>
-提出〆切: 10/16日の授業開始時
+提出〆切: 10/16日の授業開始時<br>
+（問6.17のヒント）<br>
+\((r,\theta,\phi)\mapsto(x,y,z)\)を
+座標変換の合成
+\((r,\theta,\phi)\mapsto(\rho,\phi,z)=(r\sin\theta,\phi,r\cos\theta)
+\mapsto(x,y,z)=(\rho \cos\phi,\rho\sin\phi,z)
+\)
+とみなすと、<br>
+\(z=r\cos\theta,\ \rho=r\sin\theta\)と
+\(x=\rho \cos\phi, y=\rho \sin\phi\)の2次元の極座標変換を
+引き続けて行ったものであることがわかる。<br>
+問6.16より,
+\(
+\left(\frac{\partial^2}{\partial x^2}+
+\frac{\partial^2}{\partial y^2}
+\right)u=
+\left(
+\frac{\partial^2}{\partial \rho^2}+
+\frac1\rho\frac{\partial}{\partial\rho}+
+\frac1{\rho^2}\frac{\partial^2}{\partial \phi^2}
+\right)u
+\)
+と容易に\(\rho,\phi\)で表すことができる。
+よって、
+\(
+\left(\frac{\partial^2}{\partial x^2}+
+\frac{\partial^2}{\partial y^2}+
+\frac{\partial^2}{\partial z^2}
+\right)u=
+\left(
+\frac{\partial^2}{\partial \rho^2}
++\frac{\partial^2}{\partial z^2}
++\frac1\rho\frac{\partial}{\partial\rho}+
+\frac1{\rho^2}\frac{\partial^2}{\partial \phi^2}
+\right)u
+\)である。<br>
+ここでも、問6.16より
+\(
+\left(\frac{\partial^2}{\partial \rho^2}+
+\frac{\partial^2}{\partial z^2}
+\right)u=
+\left(
+\frac{\partial^2}{\partial r^2}+
+\frac1r\frac{\partial}{\partial r}+
+\frac1{r^2}\frac{\partial^2}{\partial \theta^2}
+\right)u
+\) および、
+\(
+\frac{\partial}{\partial\rho}=
+\sin\theta \frac{\partial}{\partial r}
++\frac{\cos\theta}{r} \frac{\partial}{\partial \theta}
+\)が成立するので、\(\dots\)（以下各自）
+
+
 
 <!-- <\!-- <\\!-- <li>[2015/9/23出題レポート1] -\\-> -\-> -->
 <!-- <\!-- <\\!-- 教科書の問題6.1(1),(2) -\\-> -\-> -->
