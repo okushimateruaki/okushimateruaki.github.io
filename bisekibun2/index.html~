@@ -10,7 +10,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
 </script>
   </HEAD>
-https://okushimateruaki.github.io/bisekibun2/index.html
+<!-- https://okushimateruaki.github.io/bisekibun2/index.html -->
 <hr>
 
     <H1> 微分積分学II</H1>
@@ -22,7 +22,7 @@ https://okushimateruaki.github.io/bisekibun2/index.html
     </h4>
 <p>
 <font size=-1>
-Last-updated: <2017/10/26 15:22:01>
+Last-updated: <2017/10/26 15:35:52>
 </font>
 </p>
 
@@ -246,11 +246,12 @@ Last-updated: <2017/10/26 15:22:01>
 
 <li>[2017/11/10 中間試験]範囲：教科書の第6, 7章<br>
 (問1) 2変数の関数の極限 [例6.1の類題]<br>
-(問2) 2変数の関数 \(z=f(x,y)\) の極値[問7.4の類題]<br>
-(問3) 陰関数の極値[問7.8の類題]<br>
+(問2) 2変数の関数の極値 [問7.4の類題]<br>
+(問3) 陰関数の極値 [問7.8の類題]<br>
 (問4) 条件付き2変数関数の極値 [問7.9の類題]<br>
-(問5) 2変数の関数 \(z=f(x,y)\) の偏微分，全微分 \(dz\)， \(\Delta z\)，
-とマクローリン展開[例6.2,6.6,6.10の類題]<br>
+(問5) 2変数の関数 \(z=f(x,y)\) の偏微分\(z_x,z_y,z_{xx},z_{xy},z_{yy}\)，
+全微分 \(dz\)， \(\Delta z\)，
+とマクローリン展開[例6.2, 6.6, 6.10の類題]<br>
 (問6) 座標変換のヤコビ行列，ヤコビ行列式，
 微分演算の書き換え [問6.13, 6.16の類題]<br>
 
