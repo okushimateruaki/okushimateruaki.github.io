@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+  <HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <Title>小テスト3</Title>
+  </HEAD>
+
+<!-- for mathjax -->
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+    }
+  });
+</script>
+<meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+
+
+
+<hr>	
+<h3>第三回小テストのテスト範囲は、</h3> 
+<ol>
+<li>線形微分方程式の定数変化法
+</ol>
+です。以下の演習問題から1問出題します。
+
+
+<hr>
+<h3>演習問題</h3>
+<OL type="1" start="1">
+<LI>微分方程式
+$y'+2y=5 e^{3x}$
+(線形非同次)の一般解を定数変化法で求めよ。
+<br>
+(答)
+$y=e^{3 x} + C e^{-2 x}$
+
+<LI>微分方程式
+$x^3 y'+3x^2y=1/x$
+(線形非同次)の一般解を定数変化法で求めよ。
+<br>
+(答)
+$y=C/x^3 + \log(x)/x^3$
+
+
+<LI>微分方程式
+$x y'=2y+x^3 e^x$
+(線形非同次)の一般解を定数変化法で求めよ。
+<br>
+(答)
+$y=e^x x^2 + C x^2$
+
+
+</ol>
+
+
+
+
+
+
+
+<hr>
+<h3>連絡</h3>
+<img src="../profile/email.png" height="25"vapace="0"hspace="0"> 
+<!-- E-mail: okushima_t[ATmark]mac.com の"[ATmark]"を"@"に置き換える -->
+<br>
+件名:"微分方程式(学籍番号123456)：～について"
+
+
+</HTML>
