@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>質問と回答</title>
+</head>
+<body>
+<h1>質問と回答</h1> 
+
+<p>質問は <a href="joho_shyori.html#kousi">メールで奥島まで</a>送ってください。</p>
+
+<ul>
+ <li><a href="#q1">Mozilla などで日本語を入力する方法が分かりません</a> <tt>2006-4-25</tt></li>
+ <li><a href="#q2">Emacs や Mozilla を起動するときに「&amp;」を付けるのを忘れたのですが</a> <tt>2006-4-25</tt></li>
+ <li><a href="#q3">自宅の Windows でも UNIX の勉強をしたい</a> <tt>2006-4-25</tt></li>
+ <li><a href="#q4">自宅の Mac でも UNIX の勉強をしたい</a> <tt>2006-4-25</tt></li>
+ <li><a href="#q5">Emacs で漢字変換できない</a> <tt>2006-4-26</tt></li>
+ <li><a href="#q6">テキスト形式でメールを送信するとはどういうことですか？</a> <tt>2006-4-26</tt></li>
+ <li><a href="#q7">Mew の設定をしてから Webメールでメールが読めなくなった</a> <tt>2006-4-26</tt></li>
+ <li><a href="#q8">Mew でメール作成画面を終了・中断するには</a> <tt>2006-4-26</tt></li>
+ <li><a href="#q9">メールの「Cc」ってなんですか?</a> <tt>2006-5-2</tt></li>
+ <li><a href="#q10">署名はどこに書くのですか？</a> <tt>2006-5-2</tt></li>
+ <li><a href="#q11">ファイルがコピーできなかった</a> <tt>2006-5-2</tt></li>
+ <li><a href="#q12">Mew では送信済みメールは保存できないのですか？</a> <tt>2006-5-12</tt></li>
+ <li><a href="#q13">家のパソコンでも LaTeX を使いたい</a> <tt>2006-5-13</tt></li>
+</ul>
+<hr>
+
+
+<ul>
+ <li><a name="q1"><b>Mozilla などで日本語を入力する方法が分かりません</b></a> <br>
+     kinput2 を利用して入力を行います。<b>Shift-Space</b>でかな漢字変換モードになります。
+     RAINBOWガイド P.82〜を見てください。 </li>
+
+ <li><a name="q2"><b>Emacs や Mozilla を起動するときに「&amp;」を付けるのを忘れたのですが</b></a><br>
+     まず「&amp;」の意味ですが、バックグラウンドジョブとしてプログラムを起動させるためのものです。
+     まず、プログラムを立ち上げたターミナル(kterm)で<b>C-z</b>として、
+     一度プログラムを中断します。
+     そうすることで、ターミナルからの入力を受け付けるようになります。
+     次に、
+     <pre>% bg</pre>
+     とすることで、中断していたジョブをバックグラウンドジョブにすることができます。
+     関連するコマンドとして <b>jobs</b> や <b>fg</b> もチェックしましょう。
+     詳しくはRAINBOW GUIDE P30-32を見てください。
+     </li>
+     
+ <li><a name="q3"><b>自宅の Windows でもUNIXの勉強をしたい</b> </a> <br>
+     残念ながら私は Windows 周辺の事情を把握していません。とりあえず紹介だけ。
+     Windows 上で UNIX環境を実現する Cygwin 。
+     ハードディスクへのインストールはせずにCD一枚でブートできる
+     <a href="http://unit.aist.go.jp/itri/knoppix/">KNOPPIX</a>。
+     別のパーティションを用意して Windows と Linux
+     のデュアルブートにする<a href="http://www.vinelinux.org/">Vine Linux</a>。
+     </li>
+ <li><a name="q4"><b>自宅の Mac でもUNIXの勉強をしたい</b> </a> <br>
+     <a href="http://www.apple.com/jp/macosx/features/unix/">Mac OS X は UNIXベースのOSです</a>。
+     TeX や Emacs などの環境を整えるには
+     <a href="http://macwiki.sourceforge.jp/cgi-bin/wiki.cgi?MacOSX_WorkShop">Mac OS X WorkShop</a>
+     が便利です。
+     </li>
+     
+ <li><a name="q5"><b>Emacs で漢字変換できない</b> </a><br>
+     <a href="http://www.ritsumei.ac.jp/acd/mr/i-system/page/06-06.html#Q22">RANBOW の FAQ</a>
+     参照</li>
+     
+ <li><a name="q6"><b>テキスト形式でメールを送信するとはどういうことですか？</b></a> <br>
+     たいていのメールソフトは、文字の大きさや色を変更できる 
+     HTML 形式(Webページと同じ形式)でメールを作成できます。
+     それに対して、文字だけのメールをテキスト形式(標準テキスト)と呼びます。
+     普通の用事でメールを使うときは、テキスト形式にしてください。</li>
+     
+ <li><a name="q7"><b>Mew の設定をしてから Webメールでメールが読めなくなった</b> </a> <br>
+     Rainbow のメールでは、Mew が POP というプロトコルを用いてメールを
+     ホームディレクトリ（ローカルマシン）以下に取り込んで管理します。
+     Mew でメールをサーバから取り込むときに、サーバ側のメールを消すタイミングを指定できます。
+     日数を 0 にしておくと、直ちにサーバ上のメールが消去され、
+     他のメーラーやWebメールで読む事ができなくなります。
+     ずっと残しておきたい場合は -1 にします（他のメールソフトで管理する場合）。
+     設定の方法は、<a href="./mail.html">imsetupをもう一度実行</a>
+     して以下の項目を変更してください。
+<pre>
+% imsetup
+................
+Do you want to preserve messages?
+0 (delete immediately), -1 (preserve forever),
+N > 0 (delete messages after N days)  [0] 14
+................
+</pre></li>
+     
+ <li><a name="q8"><b>Mew でメール作成画面を終了・中断するには</b></a> <br>
+     作成中のメールを送信せずに保存するには <B>C-x C-s</B> とすると、
+     +draftに保存されます(フォルダの移動は <B>g</B>)。
+     作成画面の終了は、<B>C-c C-q</B>です。</li>
+ <li><a name="q9"><b>メールの「Cc」ってなんですか?</b></a><br>
+     <a href="http://e-words.jp/w/E382ABE383BCE3839CE383B3E382B3E38394E383BC.html">
+     カーボンコピー</a>です。</li>
+ <li><a name="q10"><b>署名はどこに書くのですか？</b></a><br>
+     メールの末尾です。</li>
+ <li><a name="q11"><b>ファイルがコピーできなかった</b></a><br>
+     コピー先にファイルが既にある場合、
+     上書きして良いか聞いてきますので間違っていなければ
+     「y」と入力してください。
+     </li>
+ <li><a name="q12"><b>Mew では送信済みメールは保存できないのですか？</b></a><br>
+     送信時に Fcc(File Carbon Copy) で +Backup というフォルダに
+     残しておくことができます。
+     こうするには設定ファイル <tt>~/.emacs.el</tt> に<br>
+     <pre class="source">(setq mew-fcc "+Backup")</pre>
+     を書き加えます。
+     Mew の画面で <b>g</b> と入力して、ミニバッファで +Backup と入力すれば、
+     そのフォルダのファイルを見る事ができます。
+       </li>
+ <li><a name="q13"><b>家のパソコンでも LaTeX を使いたい</b></a> <br>
+     <dl>
+      <dt>Windows を使っていてインターネットに常時接続している</dt>
+      <dd>
+      <a href="http://oku.edu.mie-u.ac.jp/%7Eokumura/texwiki/">TeX Wiki</a>
+      の解説を参考にしてください。
+      </dd>
+      <dt>Mac OS X を使っていてインターネットに常時接続している</dt>
+      <dd>
+      <a href="http://www.bach-phys.ritsumei.ac.jp/OSXWS/">                       
+      Mac OS X WorkShop</a>をインストールしてください
+      （<a href="http://macwiki.sourceforge.jp/cgi-bin/wiki.cgi?MacOSX_WorkShop">Mac Wiki</a>）
+      </dd>
+      <dt>Windows / Mac OS X を使っていてインターネットに接続されていない</dt>
+      <dd>「美文書作成入門」の付録CDに収録されています。
+      インストールの方法も付録に解説があります。</dd>
+      <dd></dd>
+     </dl>
+     </li>
+</ul>
+
+
+
+<hr>
+<a href="index.html">TOP</a> 
+
+</body>
+</html>
+

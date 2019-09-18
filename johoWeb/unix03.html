@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>（第３回）UNIX の基礎</title>
+</head>
+
+<body>
+<A HREF="unix02.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix04.html">NEXT</A>
+
+<h2>（第３回）UNIX の基礎</h2> 
+<H3>今日の目標</H3>
+<p>今日は、
+  UNIX での標準的なテキスト・エディタである Emacs を利用してテキストファイルを作成/編集できるようになることを目指します。  Emacsにおける日本語入力の方法についても学びます。
+
+
+<h3>この授業用の作業ディレクトリの作成</h3>
+<p>自分以外の誰にも「読み／書き／実行」の権限がないディレクトリを、
+自分のホームディレクトリ下に作成せよ。そのディレクトリの名前は「Documents」とする。
+<pre>
+% cd <font color="#adff2f">・・・ホームディレクトリに移動し</font>
+% mkdir Documents
+% chmod 700 Documents
+% ls -l Documents
+%
+</pre>
+<p><em>drwx------</em>
+を確認する。今後はDocuments以下で作業を行う。
+<pre>
+% cd Documents
+%
+</pre>
+
+<h3>Emacs</h3>
+
+<h4>表記のルール</h4>
+<ul>
+ <li>  <b>C-<文字></b> <br>
+   コントロールキーを押したまま、
+   <文字>キーを押します。
+     例えば、C-f はコントロールキーを押しながら f のキーを押すことです。</li>
+
+ <li>  <b>M-<文字> </b> <br>
+   エスケープキー< ESC >を押してから離し、
+それから<文字>キーを押します。以降エスケープキーのことを M と書きます。
+本来は『メタキーを押したまま、<文字>キーを押します』だったのですが、メタキーのないキーボードの場合は上のように操作します。</li>
+
+</ul>
+
+<h4>Emacs 操作入門</h4>
+
+<p><strong>起動</strong></p>
+<P>ファイルを開くときは、
+引数にファイル名を指定してEmacsを起動します。
+
+<p>（練習）ホームディレクトリにある隠しファイル.cshrcを開く。
+ターミナルで、
+<PRE>
+% emacs ~/.cshrc & 
+%                                                            
+</PRE>
+<p>と入力します。
+
+<p><strong>終了</strong>　<em>C-x C-c</em>  
+<P>Emacsを終了するには、「C-x C-c」。
+「C-」はCtrlキーを押しながらという意味で、
+ここではCtrlキーを小指で押さえたまま、
+左手の人差し指で「xc」と入力してください。
+
+<p>(練習)「C-x C-c」として、.cshrcを閉じてEmacsを終了して下さい。
+<p><strong>取り消し</strong> <b>C-g</b><br>
+<P>ともかく、Emacsの作業中に変なことになって困ったら、いつでも「C-g」して操作をキャンセルできる
+ので安心して作業しよう。
+
+<p>
+(練習)さて、再度ターミナルから Emacs を起動し
+<PRE>
+% emacs & 
+%                                                            
+</PRE></P>
+<p>次のように入力しよう
+<pre class="source">
+abcde
+fghij
+klmno
+pqrst
+uvwxy
+z
+</pre>
+<p>
+ここではファイル名を指定しないでEmacsを起動したので、
+ファイル名の所が<b>*scratch*</b>になっていることを確認せよ。
+
+<p><strong>保存</strong> <b>C-x C-s</b><br>
+いま入力したのを名前をつけて保存するには、「C-x C-s」で保存する。
+<p>（練習）「C-x C-s」して、alphabet.txtとして保存しよう。
+<pre class="source">File to save in: ~/Documents/</pre>
+<p>と、一番下の長細いまどに出てくるので
+<p>
+<pre class="source">File to save in: ~/Documents/alphabet.txt</pre>
+<p>と追記してエンターキーを押す。
+
+<p><strong>別名保存</strong> <b>C-x C-w</b> 
+<p>（練習）
+「C-x C-w」すると、Write file:~/Documents/と一番下の長細いまどに出てくるので
+<p>別の名前alphabet2.txtを打ち込んでリターンキーをおす。
+<p>ファイル名の所がalphabet2.txtとなっているのを確認し、次のように編集する。
+<pre class="source">
+aabbccddee
+ffgghhiijj
+kkllmmnnoo
+ppqqrrsstt
+uuvvwwxxyy
+zz
+</pre>
+<p>この編集を保存するため「C-x C-s」する
+
+
+<p><strong>開く</strong> <b>C-x C-f</b><br>
+（練習）もう一度 alphabet.txtを編集しよう。Emacsからファイルを開くには
+「C-x C-f」とすると、
+<pre class="source">Find file:~/Documents/</pre>
+<p>と出てくるので
+<pre class="source">Find file:~/Documents/alphabet.txt</pre>
+<p>してエンターキーを押す。
+
+<p>あるいは、ファイル名を追記しないで、エンターキーを押すとDocuments下のファイル一覧が
+<pre class="source">
+  -rw-r--r--   1 okushima  staff     32 12 29 10:38 alphabet.txt
+  -rw-r--r--   1 okushima  staff     32 12 29 10:40 alphabet2.txt
+...........
+</pre>
+<p>出てくるので、ファイル名の所にカーソルを持っていってエンターキーを押すことでファイルを開くこともできる。ファイル名をうろ覚えのときに便利。
+
+<p><strong>カーソル移動</strong></p>
+<p>矢印キー（←、↑、→、↓）を使ってカーソルを移動する以外に、
+徐々に使えるようになると便利。便利な機能がいろいろある。
+<P>
+<FONT COLOR="white">●</FONT>
+一文字進む<em>f</em>orward-char : <b>C-f</b><br>
+<FONT COLOR="white">●</FONT>
+一文字戻る<em>b</em>ackward-char : <b>C-b</b><br>
+<FONT COLOR="white">●</FONT>
+次の行へ<em>n</em>ext-line : <b>C-n</b><br>
+<FONT COLOR="white">●</FONT>
+前の行へ<em>p</em>revious-line : <b>C-p</b><br>
+<FONT COLOR="white">●</FONT>
+行頭へ移動 move-beginning-of-line : <b>C-<em>a</em></b><br>
+<FONT COLOR="white">●</FONT>
+行末へ移動move-<em>e</em>nd-of-line : <b>C-e</b><br>
+<FONT COLOR="white">●</FONT>
+<em>g</em>oto-line : <b>M-g g</b> or <b>M-g g</b><br>
+<FONT COLOR="white">●</FONT>
+次のページscroll-up : <b>C-v</b><br>
+<FONT COLOR="white">●</FONT>
+前のページscroll-down : <b>M-v</b><br>
+<FONT COLOR="white">●</FONT>
+ファイルの最初beginning-of-buffer : <b>M-<</b><br>
+<FONT COLOR="white">●</FONT>
+ファイルの最後end-of-buffer : <b>M-></b><br>
+</P>
+
+<p>(練習)今開いているalphabet.txtの中を、
+矢印キーの代わりにC-f,b,n,pでカーソルを移動したり、C-a,eで行頭、行末に移動してみよう。
+
+
+<p><strong>取り消し(UNDO)</strong></p>
+<p>
+もし、間違った変更をしてしまったら、
+取り消し（undo）コマンドでその変更を取り消すことができます。<br>
+<FONT COLOR="white">●</FONT>
+undo : 
+<b>C-/</b> or
+<b>C-_</b> or 
+<b>C-x u</b><br>
+</p>
+
+<p><strong>デリート</strong></p>
+<p>普通にデリートキーでも文字を消せますが、次のようなやりかたもあります。
+<P>
+<FONT COLOR="white">●</FONT>
+delete-char : <b>C-d</b><br>
+<FONT COLOR="white">●</FONT>
+delete-backward-char : <b>DEL(Backspace)</b> or <b>C-h</b><br>
+</P>
+
+<p><strong>コピー、カット(kill)、ペースト(yank)</strong></p>
+<p><FONT COLOR="white">●</FONT>
+カーソル以降をカット <em>k</em>ill-line : <b>C-k</b><br>
+<p><FONT COLOR="white">●</FONT>
+ペースト yank : <b>C-y</b> <br>
+
+<p>(練習)alphabet.txtの内容を、現在の
+<pre class="source">
+<span style="background-color:#ffff66;">a</span>bcde
+fghij
+klmno
+pqrst
+uvwxy
+z
+</pre>
+<p>から、
+
+<pre class="source">
+abcde
+fghij
+klmno
+pqrst
+uvwxy
+z
+abcde
+fghij
+<span style="background-color:#ffff66;"> </span>
+</pre>
+<p>に変更してみよう。
+やり方は、
+最初の状態からC-k,C-k,C-k,C-k（Controlキーを押しながらkを4回押す）して、
+<pre class="source">
+<span style="background-color:#ffff66;">k</span>lmno
+pqrst
+uvwxy
+z
+</pre>
+<p>まで持っていく。この時点でカットされた
+<pre class="source">
+abcde
+fghij
+</pre>
+<p>はEmacsが覚えているので、C-yでペーストする
+<pre class="source">
+abcde
+fghij
+<span style="background-color:#ffff66;">k</span>lmno
+pqrst
+uvwxy
+z
+</pre>
+<p>覚えているのは何度でもペーストできるので、カーソルを最後の文字zの後ろに持っていって
+C-yでペーストする。これで変更できるはず。
+
+<p><strong>検索、置換</strong></p>
+<P>
+<FONT COLOR="white">●</FONT>
+検索 <em>s</em>earch-forward :  <b>C-s</b> <br>
+<FONT COLOR="white">●</FONT>
+後方検索 isearch-backward :  <b>C-r</b> <br>
+<FONT COLOR="white">●</FONT>
+query-replace : <b>M-%</b> <br>
+<FONT COLOR="white">●</FONT>
+query-replace-regexp : <b>C-M-% </b> <br>
+</P>
+
+
+
+
+<!-- <p><strong>マークとリージョン</strong></p> -->
+
+<!-- <P> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- set-mark-command : <b>C-SPC</b><br> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- kill-region : <b>C-w</b><br> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- copy-region-as-kill-nomark : <b>M-w</b><br> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- yank-pop : <b>M-y</b> <br> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- mark-whole-buffer : <b>C-x h</b> <br> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- mark-sexp : <b>C-M-SPC </b> <br> -->
+<!-- </P> -->
+
+
+<!-- <p><strong>カーソルを中心にする＋再描画</strong></p> -->
+<!-- <P> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- recenter :  <b>C-l</b>  -->
+<!-- </P> -->
+
+
+<!-- <p><strong>バッファ</strong></p> -->
+<!-- <P> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- switch-to-buffer :  <b>C-x b</b> <br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- list-buffers : <b>C-x C-b</b> <br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- kill-buffer : <b>C-x k</b> <br> -->
+<!-- </P> -->
+
+<!-- <p><strong>ウインドウ</strong></p> -->
+
+<!-- <p> -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- split-window-vertically :  <b>C-x 2</b> <br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- delete-other-windowscly :  <b>C-x 1</b> <br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- other-window : <b>C-x o</b> <br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- make-frame-command : <b>C-x 5 2</b><br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- delete-other-frames : <b>C-x 5 1</b><br>  -->
+<!-- <FONT COLOR="white">●</FONT> -->
+<!-- other-frame : <b>C-x 5 o</b><br>  -->
+<!-- </p> -->
+
+<h4>関数の実行</h4>
+
+<p>実際の編集作業は、上で示したキーバインドを利用して行います。
+関数名を指定して、実行するには 
+<blockquote>
+ <p><b>M-x</b> <i>function-name</i></p>
+</blockquote>
+とします。この方法で、キーバインドが定義されていない関数も実行できます。
+たとえば、
+<blockquote>
+ <p><b>M-x</b> tetris</p>
+</blockquote>
+
+</p>
+
+<!--
+<h4>他の資料</h4>
+<ul>
+ <li> RAINBOWガイド
+「8 スクリーンエディタ」P54~で紹介されています。</li>
+ <li> Windows上でのEmacs <A HREF="http://kawacho.don.am/win/meadow/index.html">めどうさん入門(Meadow 入門)</A></li>
+
+</ul>
+-->
+
+<h3>Emacs での日本語入力</h3>
+<p>Emacs で日本語を入力する方法は複数有りますが、ここでは Anthy+Anthy.el を使います。尚、具体的な操作に関しては「RAINBOWガイド(UNIX操作)」p.80~ を見てください。</p>
+
+<h4>操作方法</h4>
+<p> 
+<B>半角/全角|漢字</B>キー、または
+<B>C-￥</B> と入力すると、Emacs のモード行に「<B>Anthy: あ</B>」と表示され、ローマ字かな変換モードに入ります。この状態でもう一度<B>C-￥</B> と入力するともとに戻ります。ローマ字かな変換モードでキーを打つと平仮名が入力されます。適当に入力したところで<B>Space bar</B>を押すと漢字に変換されます。</p>
+
+
+変換と確定間の操作
+<ul>
+ <li> 文節伸ばし　　：<B>C-o</B></li>
+ <li> 文節縮め　　　：<B>C-i</B></li>
+ <li> 次の変換文節　：<B>C-f</B></li>
+ <li> 前の変換文節　：<B>C-b</B></li>
+ <li> 次の候補　　　：<B>SPC</B> または <b>C-n</b></li>
+ <li> 前の候補　　　：<B>C-p</b></li>
+</ul>
+
+<!-- モードの切り替え -->
+<!-- <ul> -->
+<!--  <li> ひらがな　＜－－＞　カタカナ入力への切り替え : <B> q </B></li> -->
+<!--  <li> ひらがな　　－－＞　英数半角文字への切り替え : <B> l </B></li> -->
+<!--  <li> ひらがな　　－－＞　英数全角文字への切り替え : <B> L </B></li> -->
+<!--  <li> 英数　　　　－－＞　ひらがな入力えの切り替え : <B> C-j </B></li> -->
+<!-- </ul> -->
+
+
+
+<!-- </p> -->
+
+<!-- <h4>辞書登録</h4> -->
+
+<!-- <p>単語の頭で <b>C-SPC</b> で Mark set し単語の最後までカーソルを移動し、そこで <b>M-x egg-toroku-region</b> とすると単語を辞書に登録できます。</p> -->
+
+<h3>課題提出</h3>
+
+<!-- <li>Emacs で stripe_pattern.txt を作成して、<A HREF="http://www.aozora.gr.jp/cards/000042/files/2354_13803.html">自然界の縞模様 (寺田寅彦) </A>を書き写す。 -->
+課題：
+ <li> 各自Emacsで自身のプロフィールをファイル名profile.txtとして作成せよ。（80~120文字）
+<br>
+
+
+
+<pre class="source">
+はじめまして、。。。。と申します。現在は、
+物理学の中でも特に、xxx物理学に興味をもっ
+ています。将来は、yy問題の解決に物理学の
+視点から貢献したいと考えています。趣味は散
+歩、読書です。村上zzの小説や吉田kkの随筆が
+好きです。どうぞ宜しくお願いします。
+</pre>
+
+
+<li>
+各自編集したprofile.txtを奥島までメールで添付して提出せよ。<br>
+メールの件名：情報処理演習(A2 or B2) 第3回課題<br>
+提出期限：演習時間内<br>
+
+<h3>発展</h3>
+時間が余った人は、emacs のチュートリアルをやってください。
+emacs を起動して
+<blockquote>
+ <p><b>M-x</b> help</p>
+</blockquote>
+とすると、一番下の細長いところに、<br>
+<pre class="source">
+Type one of the options listed, or SPACE or DEL to scroll:<span style="background-color:#ffff66;"> </span>
+</pre>
+とでるので、<em>t</em> を入力。
+あとは画面の指示に従って下さい。
+
+
+<h3>参考</h3>
+<ol>
+ <li> <A HREF="./japanese.html">日本語文字コードについて</A></li>
+</ol>
+
+
+
+<hr>
+
+<A HREF="unix02.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix04.html">NEXT</A>
+</body>
+
+</html>
+

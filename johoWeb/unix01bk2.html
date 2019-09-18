@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>（第１回）UNIX の基礎</title>
+</head>
+<body>
+
+<A HREF="index.html">TOP</A> |
+<A HREF="unix02.html">NEXT</A>
+
+<h2>（第１回）UNIX の基礎</h2> 
+
+
+<h3>今日の目標</h3>
+
+<p>
+初回の本日は、
+PCの起動、ログイン、パスワードの変更、webメールの使い方などの
+UNIX基本操作を勉強します。
+余った時間で、タイピングの練習をします。
+</p>
+
+<h3>ログイン(login)・ログアウト(logout)</h3>
+
+先ず最初に、
+<ul>
+<li>コンピュータの電源を投入し、Linuxを選択する。
+（電源が既に入っているときにはLinux で動いているか確認し
+Windows であれば Linux に立ち上げ直す）
+<li>Linuxのログイン画面で IDとPasswordを入力して ログインする。
+<li>
+<A HREF="passwd.html">パスワードの変更 (passwd)</A><BR>
+<p>UNIX では一つのコンピュータを同時に多数の人が使います。
+パスワードの管理は UNIX を利用する者の義務です。</P></li>
+<li>
+ログアウトして、新しいパスワードでログインする。
+</ul>
+
+
+
+
+
+<!-- <li>幾つかのUNIXコマンドを入力して、 -->
+<!-- <A HREF="file.html"> ファイルとディレクトリ</A>について確認する。 -->
+
+<!-- <li>WEBブラウザを利用して，メールの送信＆受信の練習．メーリングリストへの登録。 -->
+
+<!-- </UL> -->
+
+
+<h3>UNIXの基本</h3>
+
+<ul>
+<li> UNIXに対する操作は、基本的に端末からのコマンド入力で行う。
+ログイン後まず、コマンドライン端末（
+<A HREF="http://ja.wikipedia.org/wiki/GNOME_%E7%AB%AF%E6%9C%AB">GNOME端末</A>
+,<A HREF="http://ja.wikipedia.org/wiki/Kterm">kterm</A> 等）を立ち上げよう。
+
+
+ <li> Webブラウザ firefox(あるいはmozilla)の起動
+<pre>
+% firefox 
+</pre></li>
+<p>
+演習で使うこのWEBページ
+<A HREF="http://www.ritsumei.ac.jp/~okushima/johoWeb/index.html">
+http://www.ritsumei.ac.jp/~okushima/johoWeb/index.html
+</A>
+をブックマークしておきましょう．
+</p>
+</li>
+<p>
+<strong>豆知識</strong><br>
+上記のように firefox を起動すると，firefox を終了させるまで，別のコマンドの入力ができなくなってしまいます。<br><br>
+そこで
+</p>
+<pre>
+% firefox &
+</pre>
+<p>
+のように、コマンドの最後に <tt>&</tt> をつけてみます。こうすると firefox の動作中もコマンドの入力ができるようになります。<br>
+この「最後に <tt>& </tt>をつけること」を<em>バックグラウンドで実行</em>するといいます。
+</p>
+
+
+
+<li> 
+<A HREF="http://webmail.ritsumei.ac.jp/index.html">Webメール</A>を使う。
+	<p>RAINBOWでE-MAILを使うには幾つかの方法があります。
+	その一つとして、WEBブラウザを利用したメールが使えます。<br>
+	立命館大学のホームページにあるWEBメールの箇所で、各自のメールアドレスとパスワードを入力すれば、<br>
+	GUI（画像を見ながらの対話形式）でメールが利用できます。
+　またこれはWEBが使える場所ならどこででも利用できます。
+	</p>
+
+<li>WEBメールの練習
+	<p>講師（奥島）へメールを送信するには、
+ログインした画面で、メール作成を選択して，
+以下のように入力し送信してください．
+	<pre class="source">
+　To：okushima_t@mac.com <font color="#ff2fad"> <-- 講師（奥島）のアドレス</font>
+　件名:情報処理演習（A2 or B2）<font color="#ff2fad"> <-- A2(月),B2(火)</font>
+　本文:立命太郎です。本メールは第1回の演習の課題です。　<font color="#ff2fad"> <-- 受講者（あなた）の名前に変更して下さい</font>
+</pre>
+	</p>
+<!-- 	<p>しばらくするとML管理サーバーから以下のような返信がやってくるので，その内容に従ってください． -->
+<!-- 	<pre class="source"> -->
+<!-- 件名 : Subscribe confirmation request (ml-2012 ML) [ Sun, 10 Apr 2012 00:26:40 +0900 ]   -->
+<!-- 送信者 : ml-2012-admin＠bach-phys.ritsumei.ac.jp   -->
+<!-- 受信者 : xxxx＠yyyy.ritsumei.ac.jp   -->
+
+<!-- こちらは＜ml-2012＠bach-phys.ritsumei.ac.jp＞メーリングリスト(ＭＬ)のfmlです。 -->
+<!-- これはＭＬに登録する意志の確認をするメールです。 -->
+<!-- このＭＬに登録していいなら -->
+
+<!-- confirm ******************************* Taro Ritsumei　 -->
+	
+<!-- という一文を -->
+	
+<!-- ml-2012-ctl＠bach-phys.ritsumei.ac.jp  -->
+	
+<!-- というアドレスまで送り返して下さい。  -->
+	
+<!-- 	<font color="#ff2fad"> （以下省略）</font> -->
+<!-- 	</pre> -->
+<!-- 	<p> -->
+<!-- 	最後にML管理サーバーから以下のような返信があれば，登録作業は完了です． -->
+<!-- 	<pre class="source"> -->
+<!-- 件名 : Welcome to our (ml-2012 ML)You are added automatically [ Sun, 10 Apr 2012 00:53:32 +0900 ] -->
+<!-- 送信者 : ml-2012-admin＠bach-phys.ritsumei.ac.jp   -->
+<!-- 受信者 : xxxx＠yyyy.ritsumei.ac.jp   -->
+
+<!-- 注意: このメールにリプライするとメーリングリスト宛になります。 -->
+<!-- メーリングリストへの投稿は ＜ml-2012＠bach-phys.ritsumei.ac.jp＞ -->
+<!-- コマンドは ＜ml-2012-ctl＠bach-phys.ritsumei.ac.jp＞ -->
+<!-- 管理者宛のメールは ＜ml-2012-admin＠bach-phys.ritsumei.ac.jp＞ -->
+<!-- へ送って下さい。 -->
+
+<!-- ＜ml-2012＠＞ メーリングリストへようこそ! -->
+
+<!-- このメールはサーバの使い方についての情報を含んでいます。大事にとってお -->
+<!-- いて下さい。 -->
+
+<!-- 	<font color="#ff2fad">　（以下省略）</font> -->
+<!-- 	</pre> -->
+<!-- 	<p> -->
+<!-- 	以降，MLへの投稿されたメールは登録者全員へ送信されます． -->
+<!-- 	</p> -->
+
+<li> GNOME端末等の window の右上のＸ印ボタンはプログラムによっては、
+強制終了になってしまうので、原則として<em>使用禁止</em>と覚えておいてください。</li>
+
+
+</ul>
+
+
+<h3>課題提出</h3>
+本日の課題として、演習時間内に、
+上記のwebメールで
+奥島までメールを送信して下さい。
+
+
+
+
+<h3>タイプ練習</h3>
+たくさんの無料webアプリがあるので、googleで検索してみよう。たとえば、次のように入力します。
+<!-- Google  -->
+<center>
+<form method=get action="http://www.google.co.jp/search">
+<table bgcolor="#FFFFFF"><tr><td>
+<!-- <a href="http://www.google.co.jp/"> -->
+<!-- <img src="//www.google.com/logos/Logo_40wht.gif"  -->
+<!-- border="0" alt="Google" align="absmiddle"></a> -->
+<input type=text name=q size=31 maxlength=255 value="タイピング 無料 web アプリ">
+<input type=hidden name=ie value=UTF-8>
+<input type=hidden name=oe value=UTF-8>
+<input type=hidden name=hl value="ja">
+<input type=submit name=btnG value="Google 検索">
+</td></tr></table>
+</form>
+</center>
+<!-- Google -->
+
+
+
+今日の授業では、
+<A href="http://www.e-typing.ne.jp/">e-typing</a>
+を使って、
+速くタイプできるように練習しましょう。
+
+
+
+<hr>
+
+<A HREF="index.html">TOP</A> |
+<A HREF="unix02.html">NEXT</A>
+
+<BR>
+</BODY>
+</HTML>

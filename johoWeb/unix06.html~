@@ -1,0 +1,335 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>(第６回)C言語の初歩</title>
+</head>
+<body>
+<A HREF="unix05.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix07.html">NEXT</A>
+
+<h2>（第６回）C言語の初歩</h2>
+
+<h3>今日の目標</h3>
+<ol>
+<li>C言語のプログラムを書いてコンパイル実行できるようになる。
+<li>C言語の変数、算術計算、繰り返し(while文、for文)がで使えるようになる。
+</ol>
+
+<h3>C言語入門</h3>
+<h4>C言語のコンパイルと実行の流れ</h4>
+
+<p>
+<ol>
+<li> emacs などのテキストエディタでソースファイル(ファイル名をfilename.cとする)を作成する。
+<pre>emacs <i>filename.c</i></pre></li>
+<li> ソースファイルをコンパイル（c 言語⇒機械語に変換すること）する。
+<pre>g++ <i>filename.c</i></pre></li>
+<li> 出来上がったプログラムを実行して、動作確認。
+<pre>./a.out</pre></li>
+うまく動作しないときは、ソースファイルの修正からやり直し。
+</ol>
+</p>
+
+<h4> 練習 </h4>
+<ol>
+<li> ソースファイルの作成。<br>
+次のC言語プログラムソースファイルを emacs で作成してください。ファイル名は <tt>hello.c</tt> としましょう。<br>
+(C言語のソースファイルは、かならず<tt> .c </tt>で終わるファイル名を作ることになっています。)<br>
+
+<pre class="source">
+/* Time-stamp: <作成日の日付 作成者>
+ *
+ * Hello, World を出力するだけのプログラム
+ * 
+ */
+
+#include &lt;stdio.h&gt;
+
+int main () {
+  printf("Hello, World\n");
+  return 0;
+}
+</pre>
+出来上がったら、確認のために <b>less</b> コマンドで内容を確認しておきましょう。
+<b>less</b>コマンドを終了するときは <b>q</b> です。
+<pre>
+% less hello.c
+</pre>
+</li>
+
+<li> コンパイル <br>
+linux でのC言語のコンパイルは <b>g++</b> というコマンドを用います（教科書「プログラミング言語Ｃ」では cc というコマンドを用いるとなっているものです）。<br>
+以下を実行すると、<tt>hello.c</tt>をコンパイルして、新たに<tt>a.out</tt>というファイルを作成します。これが実行ファイル（プログラム）です。
+<pre>
+% g++ hello.c
+</pre>
+
+何もメッセージが表示されなければコンパイルは無事に成功しているはずです。<tt>a.out</tt>が作成されたことを <b>ls</b> で確認しましょう。<br>
+もし何らかのメッセージが出力されたときは、なにかソースコードに不具合があったことを示しています（コンパイルエラーが起きたといいます）。emacsでソースコードを確認して、間違いを修正してください。<br>
+新たに作成するファイル名を <tt>a.out</tt> 以外のものにしたいときは <b>mv</b> で名前を変更するか
+<pre>
+% g++ -o <i>outputfilename</i>  hello.c
+</pre>
+とすればできます。
+</li>
+
+<li> プログラムの実行<br>
+
+以下の様に実行ファイル <tt>a.out</tt>のパスを入力して <b>Enter</b> すれば、
+プログラムは実行されます。
+
+<pre>
+% ./a.out
+Hello, World!
+%
+</pre>
+うまく出力されましたか？出力結果が期待（仕様）どおりになれば、プログラミングは完了です。<br>
+もし、期待通りの動作をしない場合は、ソースコードに論理的な間違いがあることになります。この場合はソースコードを修正するところからやり直して、期待通りの動作をするまで繰り返すことになります。
+</li>
+</ol>
+
+<h3>C言語 変数宣言、算術計算、繰り返し</h3>
+
+<p>
+　C言語によるプログラミングの初歩を、教科書の例を入力したり、
+それを修正したりして学習します。<br>
+　以下では、ソースファイルの名前は各自が適当につけること。ただし、
+<em>C言語ソースファイルは、「<tt><em>.c</em></tt>」で終わるファイル名</em>にすることを忘れないように。
+</p>
+
+
+<h4>練習課題１</h4>
+<p>
+教科書（「<a href="./programming_C.pdf">プログラミング言語Ｃ</a>」）P11、華氏(Fahrenheit)と摂氏(Celsius)の対応表を
+出力するプログラムのソースコードを入力、コンパイル＆実行せよ。
+ただし、摂氏と華氏との関係は、摂氏 = (5÷9) x (華氏 - 32) である。
+
+
+
+
+<p>プログラムの実行の結果、P10と同じ表が出力されることを各自確かめること。
+
+
+
+
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+/* fahr=0,20,...,300に対して、華氏−摂氏対応表を印字する　*/
+
+main()
+{
+  int fahr, celsius;
+  int lower, upper, step;
+
+  lower = 0;    /* 温度表の下限 */
+  upper = 300;	/* 上限 */
+  step = 20;	/* きざみ */
+
+  fahr = lower;
+  while ( fahr <= upper) {
+    celsius = 5 * (fahr-32) / 9;
+    printf("%d\t%d\n", fahr, celsius);
+    fahr = fahr + step;
+  }
+}
+</pre>
+
+<h4>練習課題２</h4>
+<p>　演習課題１のプログラムを、変数<tt>fahr, celsius</tt> を <b>float</b> で宣言する事で、華氏・摂氏対応表の実数値表示
+版のソースコードを作成し、コンパイル＆実行せよ（教科書 P15 も参考にすること）。<br>
+　また、プログラムの出力結果が以下の様になることを確認すること。
+</p>
+<pre>
+  0  -17.8
+ 20   -6.7
+ 40    4.4
+ 60   15.6
+ 80   26.7
+100   37.8
+120   48.9
+140   60.0
+160   71.1
+180   82.2
+200   93.3
+220  104.4
+240  115.6
+260  126.7
+280  137.8
+300  148.9
+</pre>
+
+<p>printfの書式を整えるには、
+<!-- Google  -->
+<center>
+<form method=get action="http://www.google.co.jp/search">
+<table bgcolor="#FFFFFF"><tr><td>
+<!-- <a href="http://www.google.co.jp/"> -->
+<!-- <img src="//www.google.com/logos/Logo_40wht.gif"  -->
+<!-- border="0" alt="Google" align="absmiddle"></a> -->
+<input type=text name=q size=31 maxlength=255 value="C言語 printf">
+<input type=hidden name=ie value=UTF-8>
+<input type=hidden name=oe value=UTF-8>
+<input type=hidden name=hl value="ja">
+<input type=submit name=btnG value="Google 検索">
+</td></tr></table>
+</form>
+</center>
+<!-- Google -->
+<p>webページで調べるのも手。
+
+
+<!-- <h3>演習課題３</h3> -->
+<!-- <p>　演習課題２を修正することで、以下の様な出力が得られるようなプログラムを作成せよ </p> -->
+<!-- <pre> -->
+<!--  Fahr. | Cels. -->
+<!--      0 | -17.8 -->
+<!--     10 | -12.2 -->
+<!--     20 |  -6.7 -->
+<!--     30 |  -1.1 -->
+<!--     40 |   4.4 -->
+<!--     50 |  10.0 -->
+<!--     60 |  15.6 -->
+<!--     70 |  21.1 -->
+<!--     80 |  26.7 -->
+<!--     90 |  32.2 -->
+<!--    100 |  37.8 -->
+<!--    110 |  43.3 -->
+<!--    120 |  48.9 -->
+<!--    130 |  54.4 -->
+<!--    140 |  60.0 -->
+<!--    150 |  65.6 -->
+<!-- </pre> -->
+
+
+<h4>練習課題３</h4>
+<p>　以下のソースコードは、１から100までの整数を加えその結果を出力するプログラムを記述するものである。
+これを入力し、コンパイル＆実行せよ。</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+main(){
+  int k;
+  int sum;
+  sum = 0;
+  for(k=0; k&lt;=100; k++)
+    sum = sum+k;
+  printf("%d\n",sum);
+}
+</pre>
+<h4> ［解説］
+<b>for</b> 文と <b>while</b> 文</h4>
+
+<p> <b>for</b> 構文は、繰り返し制御を行うもので、<b>while</b> 文の一般化となっている。上記のソースコードは、
+以下の様に <b>while</b> を用いて、完全に書き換えることが可能である。</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+main(){
+  int k;
+  int sum;
+  sum = 0;
+  k = 1;
+  while( k&lt;=100 ){
+    sum += k;
+    k++;
+  }
+  printf("%d\n",sum);
+}
+</pre>
+<!--
+<p><b>for</b> 文については教科書 P16 か、<a href="./joho6.html"> Ｃ言語プログラミングの基礎（２）</a> も参照すること。
+</p>
+-->
+
+<h4>［解説］代入演算子</h4>
+
+<p>
+C言語では、変数<tt>a</tt>の値を
+計算によって新しい値にしたい場合に、
+</p>
+<pre class="source">
+a = a + 2;
+</pre>
+<p>
+とします。
+これにより「(新しい a) = (前の a) + 2 」が実現されます。
+計算機が <tt>a = a + 2</tt> を処理するときに、
+単純な演算に分解して処理すると理解してください。
+つまり、最初に <tt>a+2</tt> を計算しその値 
+<tt> p = (a+2)</tt> を保持します。
+次に、<tt>a=p</tt> という代入演算を行ないます。
+
+
+つまり、計算機は二つの演算子「+」と「=」の
+どちらを最初に処理するかという優先順位のルールをもっていて、
+変数はその演算に応じて書き換えられていきます。
+
+<em>(注意)</em>
+<tt>a = a + b</tt> や <tt>a = a - b</tt>
+といったタイプの計算は頻繁に行われるので、<tt>a += b</tt> や <tt>a -= b</tt>といった
+省略表現がＣ言語の代入演算子のバリエーションとして用意されています。
+</p>
+
+<h4>［解説］インクリメント演算子</h4>
+<p>
+<tt>i++</tt> や <tt>i--</tt> は
+<tt>i = i + 1</tt> (または<tt>i += 1</tt>)
+<tt>i = i - 1</tt> (または<tt>i -= 1</tt>)
+という意味で、インクリメント(デクリメント)演算子と
+呼ばれます。
+前置き<tt>++i</tt>と後置き<tt>i++</tt>があり、
+<tt>i</tt> にとっては違いがありませんが、
+<tt>(++i)</tt> の値は <tt>i+1</tt> であり、
+<tt>(i++)</tt> の値は <tt>i</tt> という違いがあります。
+
+
+
+<h3>今日の提出課題</h3>
+<p>つぎの２つのプログラムを作成し、ソースコードを印刷して提出すること。
+この際、ソースコード内に作成者の名前をコメントとして含ませること。<br>
+<ol>
+<li>練習課題2のソースコードを修正して、結果が逆順（つまり150°Ｆから始まって0°Ｆ）に出力されるようにせよ。
+<li>
+練習課題3を修正して、1 から 50 までに含まれる奇数の和を計算し、出力するプログラムを作りなさい。</p>
+</ol>
+
+
+<p>
+<strong>テキストファイルを印刷</strong>するには、
+<pre>
+% lp <i>filename</i>
+</pre>
+<p>
+とすればよい。
+</p>
+
+
+<HR>
+<A HREF="unix05.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix07.html">NEXT</A>
+
+</BODY>
+</HTML>
+
+
+
+
+
+
+
+
+<hr>
+<A HREF="index.html">TOP</A>
+
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第１１回） 常微分方程式の数値解法（１）</title>
+<body>
+</head>
+<A HREF="unix10.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix12.html">NEXT</A>
+<h2>（第１１回）常微分方程式の数値解法（１）</h2>
+<h3>目標</h3>
+<p>
+常微分方程式は、物理の様々な分野で登場します。
+例えば、力学のニュートンの運動方程式は、
+物体の運動を決定するための常微分方程式です。
+常微分方程式を解くための数値解法が多数開発されています。
+
+<p>今日の演習では、
+<ol>
+<li>
+もっとも簡単な解法であるオイラー法を用いて
+ニュートンの運動方程式を数値的に解きます。
+
+<li>
+計算精度を確認することで、
+正しいプログラミングであることを確認します。
+
+<li>計算結果をグラフで表示するのにgnuplotを用います。
+過去の演習
+（<a href="./unix04.html"> Gnuplot 入門 </a>）
+を参考にすること
+
+<!-- <li>計算結果まとめたレポートをLatexを用いてつくります。 -->
+<!-- 過去の演習 -->
+<!-- （<a href="./unix05.html"> Latex文書作成入門 </a>） -->
+<!-- を参考にすること -->
+
+</ol>
+
+
+
+<h3>放物運動</h3>
+<p>放物運動を考察する。下図のようにx軸、y軸をとると、<br>
+<p> <IMG src="./houbutu.png" border="0"><br>
+
+y軸方向に重力のみが働く物体のニュートンの運動方程式は、
+<p>
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=m\frac{d^2 x}{dt^2}=0,\hspace{10pt}m\frac{d^2 y}{dt^2}=-mg
+" /><br>
+となる。
+重力加速度をg=9.8 m/s<sup>2</sup>とし、質量を m=1 Kgとした方程式を考察する。<br>
+
+この常微分方程式をオイラー法で解くために、１階常微分方程式に書き換えよう。
+そのために、<br>
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=v=\frac{d x}{dt},\hspace{10pt}u=\frac{d y}{dt}" /><br>
+を導入する。
+運動方程式は x,y,v,uを用いて、１階の微分方程式に
+書きなおすことができる：<br>
+<!--   <IMG src="./joho11files/eul01.gif" border="0"> -->
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=\frac{d x}{dt}=v,\hspace{10pt}
+\frac{d y}{dt}=u,\hspace{10pt}
+\frac{d v}{dt}=0,\hspace{10pt}
+\frac{d u}{dt}=-g" /><br>
+オイラー法では、
+t=0,dt,2dt,...の時刻におけるx,y,v,uの値
+x<sub>i</sub>,
+y<sub>i</sub>,
+u<sub>i</sub>,
+v<sub>i</sub>
+を
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=
+x_{i%2b1}=x_i %2b v_i dt,\hspace{10pt}
+y_{i%2b1}=y_i %2b u_i dt,\hspace{10pt}
+v_{i%2b1}=v_i,\hspace{10pt}
+u_{i%2b1}=u_i-g dt" /><br>
+の漸化式に従って計算する。
+
+<h4>課題1</h4>
+<p>
+物体は初期時刻 t=0 で原点から速さ 10 m/sで 
+x 軸から角度 Θ°の方向に投げ出されたとする。<br>
+このとき、x(0)=0, y(0)=0, 
+v(0)=10 cos(πΘ/180), 
+u(0)=10sin(πΘ/180) である。<br>
+
+以下のソースコードは、
+この運動をオイラー法によって解くものである。<br>
+</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+
+#define  PI 3.141592
+
+int main(int argc,char *argv[]){ 
+	/* argc にはコマンドライン引数の数，argv には引数文字列のポインタ配列が代入される */
+
+	double t,dt;
+	double t1;        /* t1 は終了の時刻を代入する */
+	double x,y,xa,ya;
+	double v,u,va,ua; /* u, v はそれぞれ x, y の速度を表す変数 */
+	double th;
+	
+	th=atof(argv[1]); /* １番目の引数文字列（角度）を数値に変換し th に代入 */
+	x=0.0;            /* 初期位置と初期速度の設定 */
+	y=0.0;
+	v=10.0*cos(PI/180*th);
+	u=10.0*sin(PI/180*th);
+	
+	t1=atof(argv[2]); /* ２番目の引数文字列（終了時刻）を数値に変換し t1 に代入 */
+	dt=atof(argv[3]); /* ３番目の引数文字列（時刻の刻み）を数値に変換し dt に代入 */
+
+	for(t=0.0; t<=t1; t+=dt){
+　　　　　　　　printf("%f %f %f\n",t,x,y);
+		xa=x+v*dt;
+		ya=y+u*dt;
+		va=v;
+		ua=u-9.8*dt;
+
+		x=xa;
+		y=ya;
+		v=va;
+		u=ua;
+	}
+	return	0;
+}
+
+</pre>
+<p>
+このプログラムは、３つの<a href="./unix09.html">コマンドライン引数</a>をもちます。
+第１の引数は物体の投げ出される角度Θ 、第２の引数は終了時刻、第３の引数は時間の刻み幅です。<br>
+適当な３つの引数をあたえると、物体の各時刻での時刻と座標が出力されます。
+<pre>
+% ./a.out 45 1.5 0.05 <font color="#adff2f">･･･角度45°で 1.5秒まで 0.05秒刻みで時刻と物体の座標を出力する。</font>
+
+<font color="#adff2f">（t、ｘ、ｙ座標が次々と出力される）</font>
+
+%
+</pre>
+<p>
+<h4>課題１</h4>
+<p>放物運動の解は、解析的に求めることもできる。
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=
+x=v_0 t,\hspace{10pt}
+y=u_0 t-g t^2/2,\hspace{10pt}" /><br>
+これより、軌跡の方程式 y(x) を導出せよ。
+
+<h4>課題２</h4>
+<p>オイラー法の計算が正しく行えているかを調べるために、
+時間刻みdtを小さくすると、オイラー法の計算結果が解析解の軌跡に近づいていくことを確認しよう。<br>
+このため、
+時間刻みdtが
+0.125,
+0.015625,
+0.001953125,
+0.000244140625
+の場合について
+角度45°で打ち出された物体の運動を1.5秒まで計算する。
+これらの出力データをファイルに出力しよう。
+
+ <b>gnuplot</b> を用いて
+課題１のy(x)のグラフとともに、
+すべての出力データを重ねてプロットすることで、
+dtを小さくするとどんな様子でオイラー法が正確になっていくか大まかに把握しよう。
+
+
+<h4>課題３</h4>
+<p>時間刻みdtが
+0.125,
+0.015625,
+0.001953125,
+0.000244140625
+の出力データファイルから
+t=1.5秒のときのx,y座標の値を読み取る。
+さらに、
+解析的に求められたx,y座標の値からのずれΔを、それぞれのdtについて求めよう。<br>
+オイラー法が1次の数値解法であることから
+Δはdtに比例することが予想されるが、
+実際にそうなっているであろうか？
+gnuplotを用いて、
+Δをdtの関数としてプロットすることでこれを確かめよ。
+
+<p><strong>ヒント</strong><br>
+いろんなやり方があるが、愚直にやるには、
+まず、emacsをつかって、dt_xy.datという名前のファイルを開いておく。
+それから、
+catで0.125, 0.015625, 0.001953125, 0.000244140625 の出力データファイルを出力
+して、t=1.5秒のときのx,y座標の値を端末でコピーして、
+dat_xy.datにペーストする。
+dtの値は手で入力すると、ファイルの内容は、
+<pre class="source">
+dtの値 xの値 yの値
+dtの値 xの値 yの値	
+<font color="#ff2fad"> （以下省略）</font>
+</pre>
+<p>となる。</p>
+
+<p>Δはdtに比例しているかどうかは、
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=
+\log \Delta\simeq\log dt%2bconst" /><br>
+を確かめれば良い。gnuplotを起動して、
+<pre>
+% gnuplot
+gnuplot> set logscale xy
+gnuplot> plot ...
+</pre>
+<p>とすると両対数プロットが出来る。
+
+<p>dt_xy.datというファイルの１、２、３行に
+dt、 x座標、 y座標の値を記録したとしよう。すると、
+gnuplotを用いて望みのグラフを作るにはつぎのようにすればよい。
+<pre>
+gnuplot> v=10/sqrt(2)
+gnuplot> g=9.8
+gnuplot> t=1.5
+gnuplot> xt=v*t
+gnuplot> yt=v*t-g*t**2/2
+gnuplot> print xt, yt
+10.6066017177982 -0.418398282201791
+gnuplot> set logscale xy
+gnuplot> plot "dt_xy.dat" using 1:(sqrt(($2-xt)**2+($3-yt)**2)) w lp, 8*x
+gnuplot> 
+</pre>
+
+<p><strong>解説</strong><br>
+gnuplotでも簡単な計算ができる。上の
+using 1:(sqrt(($2-xt)**2+($3-yt)**2)) 
+のところで、ずれΔを計算している。詳しくは
+<a href="http://t16web.lanl.gov/Kawano/gnuplot/datafile2.html">
+not so Frequently Asked Questions</a>参照。
+
+
+<h3>課題提出</h3>
+<p>
+課題２と課題３のグラフを印刷したものを提出すること。
+提出の締め切りは次回の演習の時間までとする。<br>
+<!-- 完成見本を教卓に置くので参考にすること<br> -->
+</p>
+
+
+
+
+<hr>
+<A HREF="unix10.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix12.html">NEXT</A>
+
+</body>
+
+</html>

@@ -1,0 +1,367 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>情報処理 T2 情報処理演習 A2, B2</title>
+</head>
+<body>
+
+<h1> 情報処理 T2, 情報処理演習 A2,B2 </h1>
+
+<p align="center">
+<A HREF="http://www.ritsumei.ac.jp/acd/mr/i-system/index.html">
+<strong><b>RAINBOW</b></strong></A>
+<A HREF="http://www.bach-phys.ritsumei.ac.jp/KaDo/">
+<strong><b>角部屋</b></strong></A>
+<A HREF="http://webmail.ritsumei.ac.jp/index.html">
+<strong><b>Webメール</b></strong></A>
+<A HREF="http://runners.ritsumei.ac.jp/opac/basic_query?mode=2">
+<strong><b>図書館検索</b></strong></A> 
+</p>
+
+
+<p align="center">
+<!--
+<a href="http://web.mac.com/setoryohei/iWeb/B12EFDA7-FDD9-4A1B-A2AB-2FE6706FE226/Emacs.html"><b>まとめのノート</b></a>, 
+-->
+<a href="faq.html"><b>質問とその回答</b></a>
+</p>
+
+<h4>このWEBページについて</h4>
+<p>
+<em>情報処理 T2, 情報処理演習 A2,B2</em>のレジュメ・連絡のために開設されています。</p>
+<p>このWEBページに記載されている内容は、
+小林泰三氏、瀬戸亮平氏、
+浜地賢太郎氏
+によって作成された教材に加筆・修正を行っているものです。
+</p>
+<p>内容に不備や質問がある場合は浜地までその旨連絡してください。</p>
+
+
+<h4>更新と連絡</h4>
+<p>
+
+<em>[連絡]</em><br>
+<ul>
+<li> 情報処理の講義でテキスト「プログラミング言語C」を用います（５月１８日より）
+
+<li>情報処理でレポートを出しています．
+<ol>
+<li>配布したレジュメ中，『数のコンピュータ内部表現』の中にある演習問題1.4と演習問題2.4を
+６月１日の授業開始時までに提出してください。<br>
+また，演習問題2.4の2を訂正します．0.691406 を 0.69140625 にしてもよいです．（もとの問題だと計算が膨大になるみたいです）
+
+<li>配布したレジュメ中，『命題論理』の中にある演習問題2.5を６月１５日の授業開始時までに提出してください．
+</ol>
+</ul>
+
+<!--
+<a href="kadai1.html">・最終課題１・２</a>を提出しました。各自取り組むこと。<br>
+最終課題１の作成にあたって，LaTeX でレポートを書く形式見本 
+<a href="./Examples/report.tex">ソースファイル</a> 
+<a href="report.pdf">コンパイルしたもの</a> 
+<br>
+
+LaTeX での表の書き方の例 
+<a href="./Examples/shell.tex">ソースファイル</a> 
+<a href="shell.pdf">コンパイルしたもの</a> 
+<br>
+<br>
+<a href="kadai2.html">・最終課題３・４</a>を提出しました。提出は任意です。<br>
+
+<br>
+
+<em> ・補講が決まりました。</em>７月１８日（土）です。情報処理の講義（水曜）の補講は行いません。<br>
+
+
+
+
+<em><a href="kadai2.html">最終課題（特別編）</a>を提出しました。好成績を狙うものは取り組むこと。</em><br>
+
+<em><a href="mail-ml.html">授業用メーリングリストの登録</a></em>・・・終わっていない人は早急にすませること<br>
+
+・５月１２日の情報処理より、教科書「プログラミング言語Ｃ」を用います。<br>
+
+・４月２８日に配布した情報処理のレジュメ「数のコンピュータ内部表現について」から、演習問題１．４、
+および「命題論理」から、演習問題２．５をレポートとします。
+提出の<em>締め切りは６月１６日の授業開始時まで</em>とします。
+提出は直接濱地に手渡しで、用紙はＡ４サイズであれば何でも可です，ただし一枚目に氏名と学生番号を明記すること。
+<br>
+
+・４月２８日に配布した情報処理のレジュメ「命題論理」の１．２．３．の真理表が間違っています。
+正しくは、ｐ，ｑが共にＦのときだけがｐ∨ｑ＝Ｆ、それ以外はすべてｐ∨ｑ＝Ｔです。
+</p>
+
+-->
+
+<h4>担当者</h4>
+<ul>
+ <li> 講師 : 
+      浜地賢太郎  (立命館大学非常勤講師)<br>
+      メールアドレス : 
+      kht23151(at-mark)pl.ritsumei.ac.jp <br></li>
+<!--
+<li> TA : 八木淳（M1)、山村良平（M1）、原田顕史（M2）、足立俊輔（M2)、湯平泰吉（M2）</li>
+</ul>
+-->
+</ul>
+
+<h4>授業スタンス</h4>
+<p><strong>この授業で行うこと</strong></p>
+<ul>
+ <li> UNIX環境における基本操作 (CUI 環境での作業)</li>
+ <li> ネットワーク社会の住民としての基礎教養を身につける</li>
+ <li> LaTeX によるレポートの作成</li>
+ <li> C言語の簡単なプログラミング(数値計算)</li>
+</ul>
+<p>などを通して、今後の学習や研究に役立つコンピュータの使用を学びます。<br>
+実際に使って行く中で、不明な点を一つ一つ理解して解決していくという姿勢で取り組みましょう。</p>
+
+
+<p><strong>この授業でやらないこと</strong></p>
+<ul>
+ <li> WINDOWS環境での基本操作</li>
+ <li> 表計算ソフト(Excel)・文書作成ソフト(Word)の操作</li>
+</ul>
+<p>実際のところ，これらの技術は即戦力としてとても役に立つのですが，<br>
+コンピュータそのものについて深く理解するための課題としてはあまり適切ではないと考えています。<br>
+（でも、もちろん扱えるようになる方がいいですよ）<br>
+ちなみに…<br>
+科学技術論文を作成するには，LaTeXのほうが文書作成ソフト(Word)より優れていると思います。<br>
+さまざまな実験データの収集＆解析には，表計算ソフト(Excel)を用いることはなかなか便利です。<br>
+</p>
+
+
+<!-- <h4>ちょっと便利なレファレンス</h4> -->
+<!-- <ul> -->
+<!-- <li><A HREF="./emacsCMD.html">よく使う Emacs コマンドリスト</A></li> -->
+<!-- <li><A HREF="./mewCMD.html">よく使う Mew  コマンドリスト</A></li> -->
+<!-- <li><A HREF="./redirectCMD.html">UNIX における入出力のリダイレクト</A></li> -->
+<!-- </ul> -->
+
+<h4>情報処理 講義</h4>
+
+<ol>
+<li> 4月13日  
+     ガイダンス＆アンケート
+     </li>
+
+<li> 4月20日
+     コンピュータの構造と、OSの役割、UNIXの初歩
+     </li>
+
+<li> 4月27日  
+     インターネットの概要。電子メールの配達される仕組み。
+     </li>
+
+<li> 5月11日
+     コンピュータにおける数値の扱い。命題論理。
+     </li>
+
+
+<li> 5月14日
+     UNIXコマンドのおさらい、Ｃ言語プログラムの手順、LaTeX文書作成の手順について。
+     </li>
+
+<li> 5月18日
+     Ｃ言語プログラミングの基礎（１）
+     </li>
+
+<li> 5月25日  
+     Ｃ言語プログラミングの基礎（２）
+     </li>
+
+<li> 6月1日
+      Ｃ言語プログラミングの基礎（３）    
+     </li>
+
+<li> 6月8日
+     C言語プログラミングの基礎（４）
+     </li>
+
+<li> 6月15日
+     C言語プログラミングの基礎（５）
+     </li>
+
+   
+<li> <a href="./keisan1.pdf">6月22日</a>
+     C言語による数値計算の基礎（１） 
+		</li>
+
+<li>  <a href="./keisan2.pdf">6月39日</a>
+		C言語による数値計算の基礎（２）、オイラー法
+		</li>
+
+<li>  <a href="./keisan3.pdf">7月6日</a>
+		C言語による数値計算の基礎（３）、２次ルンゲ・クッタ法
+		</li>
+
+<li> 7月13日
+		C言語による数値計算の基礎（４）、様々な常微分方程式の数値解法
+		</li>
+
+<li>  7月20日
+		C言語による数値計算の基礎（５）、まとめ
+		</li>
+
+<!-- 
+-->
+
+</ol>
+
+
+
+<h4>情報処理 演習</h4>
+
+<ol>
+
+<li> <A HREF="./unix01.html">4月11日</A>  
+UNIX の基礎(1) PCの起動、ログイン、パスワードの変更、webメールの使い方
+
+<li> <A HREF="./unix02.html">4月18日</A>  
+UNIX の基礎(2) UNIX基本コマンド
+
+
+<li> <A HREF="./unix03.html">4月25日</A>  
+UNIX の基礎(3) Emacs と 日本語入力
+
+
+<li> <A HREF="./unix04.html">5月 2日</A>
+Gnuplot 入門
+
+
+<li> <A HREF="./unix05.html">5月 9日</A>  
+LaTeX 文書作成入門
+
+<li> <A HREF="./unix06.html">5月16日</A>  
+C言語の初歩
+
+<li> <A HREF="./unix07.html">5月23日</A>  
+C言語の文字入出力、条件分岐とUNIXのリダイレクション
+<br>
+<!--
+演習問題の解答例 
+<A HREF="./sam/u8k2.c">課題２</A>
+<A HREF="./sam/u8k3.c">課題３</A>
+<A HREF="./sam/u8k4.c">課題４</A>
+<A HREF="./sam/u8k4-2.c">課題４（別解）</A>
+<A HREF="./sam/u8k5.c">課題５</A>
+<em>(6/15 Update!)</em></li>
+-->
+
+<li> <A HREF="./unix08.html">5月30日</A>
+Ｃ言語の関数定義
+
+<!--
+演習問題の解答例 
+<A HREF="./sam/printKS.c">数字を漢数字にするプログラム</A>
+<A HREF="./sam/printKS2.c">数字を漢数字にするプログラム（発展版）</A>
+<em>(6/4 Update!)</em></li>
+-->
+
+<li> <A HREF="./unix09.html">6月 6日</A>
+コマンドライン引数
+
+
+<li> <A HREF="./unix10.html">6月13日</A>
+数値計算の基礎：級数、積分、数列の計算
+
+
+<li><A HREF="./unix11.html">6月20日</A>
+常微分方程式の解法（１）
+<!-- オイラー法をメインにしてルンゲクッタは発展にまわす。 -->
+
+<li> <A HREF="./unix12.html">6月27日</A>
+常微分方程式の解法（２）
+<!-- こっちでいろいろしらべて楽しむのをやる -->
+<!-- めのこで45度のときに一番飛ぶことをしらべたり。 -->
+
+<li><A HREF="./unix13.html">7月 4日</A>
+最終課題演習（１）
+<a href="./kadai1.html">課題</a>
+<!-- 必須と任意をここで与えて -->
+３回をかけて最終課題にとりくみ
+Latexでレポートを作成する。
+
+<li><A HREF="./kadai2.html">7月11日</A>
+最終課題演習（２）
+
+
+<li> 7月19日 
+最終課題演習（３）
+
+</ol>
+
+<strong>最終課題提出 7月２７日 学びステーション</strong>
+
+<h4>授業に関する質問</h4>
+<ul>
+<li>
+授業で分からなかった事があれば、質問をメールで送ってください。<br>
+<a href="./faq.html">回答は全員が見れるようにWebページでおこないます</a>。
+</li>
+<li>
+<A HREF="http://www.ritsumei.ac.jp/acd/mr/i-system/faq/index.html">RAINBOW のFAQ </A>
+を参考にしてください。
+</li>
+<li>コンピュータの専門用語等はインターネットで調べる事もできます。 <br>
+</li>
+</ul>
+<p>
+<form action="http://e-words.jp/" method="get">
+  　e-Words 用語検索 ： 
+  <input type="text" name="w" />
+  <input type="submit" value="検索" />
+</form>
+</p>
+
+
+<h4>教科書</h4>
+
+<p>教科書</p>
+<ul>
+<li>
+<A HREF="http://www.ritsumei.ac.jp/acd/mr/i-system/staff/services/manual/r-guideUNIX11.pdf">
+RAINBOW GUIDE 2011 『UNIX操作入門編』 立命館大学情報システム課編</A>	
+<font color="#2fadff">…とてもよくできています。各自ダウンロードしておきましょう。</font>  </li>
+ 
+ <li> 
+<A HREF="http://www.amazon.co.jp/exec/obidos/ASIN/4320026926/250-4870325-6927452">
+『プログラミング言語Ｃ』</A>
+共立出版 ; ISBN: 4320026926 ; 第2版</li>
+
+<li> 
+<A HREF="http://www.amazon.co.jp/%E6%94%B9%E8%A8%82%E7%AC%AC5%E7%89%88-LaTeX2e-%E7%BE%8E%E6%96%87%E6%9B%B8%E4%BD%9C%E6%88%90%E5%85%A5%E9%96%80-%E5%A5%A5%E6%9D%91-%E6%99%B4%E5%BD%A6/dp/4774143197/ref=ntt_at_ep_dpi_5">
+LaTeX2e 美文書作成入門』</A> 技術評論社 ; ISBN: 4774129844 ; 改訂第5版 </LI></UL>
+<p>参考文献</p>
+
+<ul>
+ <li> <A HREF="http://www.amazon.co.jp/exec/obidos/ASIN/4756102700/250-4870325-6927452">
+『Ｃ言語入門』;  改訂３版</A> アスキー出版局; ISBN: 4756102700 </li>
+
+ <li> 
+<A HREF="http://www.amazon.co.jp/exec/obidos/ASIN/4881663763/250-4870325-6927452">
+『叫ぶ! Cプログラマ』</A> ソーテック社 ; ISBN: 4881663763 
+</li>
+
+</ul>
+
+<p>
+<a href="http://validator.w3.org/check?uri=referer"><img
+src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</p>
+  
+<!--
+<ul>
+ <li><A HREF="misc/command.html">良く使うコマンド</A> 
+ <li><A HREF="misc/link.html">リンク集</A> 
+</ul>
+-->
+</body>
+</html>
+

@@ -1,0 +1,154 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>高機能シェル tcsh</title>
+</head>
+<body>
+
+<h3>高機能シェル tcsh</h3>
+
+<h4>シェル</h4>
+
+<P>シェルの本来の意味は「貝殻」や「殻」と云ったものです。
+イメージしにくいかも知れませんが、シェルを「一番外側に在るもの」
+と解釈してください。
+UNIX でのシェルも計算機からみて一等外側に存在し、
+人間との情報の遣取りをする窓口の約割りを担っています。
+例えば、ファイル名を確認するときに ls コマンドを使いますが、
+ユーザーがプロンプトで ls と打ってリターンキーを押すと、
+シェルがその命令を受け取って、 ls コマンドを計算機の中から探してきて、
+実行してくれるのです。
+</P>
+
+<h4>コマンドライン編集</h4>
+
+<P>
+tcsh では、Emacs などのエディタのように入力位置を移動でき、すでに入力した
+文字列に対して文字の挿入などの編集が可能です。
+キー操作の一覧を以下に示します。</P>
+
+<em>表記のルール</em>
+ 以下で，<b>C-<文字></b> は
+      コントロールキーを押したまま、<文字>キーを押すことを意味します。例えば、C-f はコントロールキーを押しながら f のキーを押すことです。
+
+<P>
+<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="0">
+<TR>
+<TD WIDTH="50%">カーソルを1つ進める</TD>
+<TD WIDTH="50%"><b>C-f</b>, →(右カーソル)</TD>
+</TR>
+<TR>
+<TD>カーソルを1つ戻す</TD>
+<TD><b>C-b</b>, ←(左カーソル)</TD>
+</TR>
+<TR>
+<TD>カーソルを先頭に移動</TD>
+<TD><b>C-a</b></TD>
+</TR>
+<TR>
+<TD>カーソルを文字列の最後に移動</TD>
+<TD><b>C-e</b></TD>
+</TR>
+<TR>
+<TD>カーソルの文字を削除</TD>
+<TD><b>C-d</b>, Delete キー</TD>
+</TR>
+<TR>
+<TD>カーソルの一つ前の文字を削除</TD>
+<TD><b>C-h</b>, BackSpace キー</TD>
+</TR>
+<TR>
+<TD>カーソルより後ろに続く文字列を全て削除</TD>
+<TD><b>C-k</b></TD>
+</TR>
+<TR>
+<TD>画面を再描画</TD>
+<TD><b>C-l</b></TD>
+</TR>
+</TABLE>
+</P>
+
+
+<h4>ヒストリ</h4>
+
+<P>ヒストリとは、コマンドの履歴です。history という内部コマンドを実行すると、
+最近実行したコマンドが以下のように表示されます。
+(内部コマンドとは、シェルの中に組み込まれたコマンドのことで、
+ls コマンドの様に一つの独立したコマンドではありません。)</P>
+
+<PRE>
+% history                                                                 
+     1  15:34   man tcsh
+     2  15:35   history
+     3  15:36   cd
+     4  15:36   pwd
+     5  15:36   ls
+     6  15:36   cd public_html
+     7  15:37   ls
+     8  15:37   cd
+     9  16:00   history
+</PRE>
+
+<P>tcsh では、これらのヒストリをたどることにより、
+以前と同じ文字列を入力するときの手間を省くことができます。
+当然、現在表示されている文字列を編集することも可能です。</P>
+
+<P><TABLE BORDER="1" CELLSPACING="0" CELLPADDING="0">
+<TR>
+<TD WIDTH="50%">ヒストリの一つ前に戻る</TD>
+<TD WIDTH="50%"><b>C-p</b>, ↑(上カーソル)</TD></TR>
+<TR>
+<TD>ヒストリの一つ先に進む</TD>
+<TD><b>C-n</b>, ↓(下カーソル)</TD></TR>
+</TABLE>
+</P>
+
+<PRE>
+% cc keyboard.c -o keyboard
+% ls -l
+-rw-r--r--   1 hsv98068 others        248 Apr 17 14:35 keyboard.c     
+-rwxr-xr-x   1 hsv98068 others       2977 Apr 17 14:35 keyboard     
+% cc keyboard.c -o keyboard          <font color="#adff2f"> <-- 前々回の入力</font>     
+    --- C-p を 2 回入力 ---     
+% ls -l                              <font color="#adff2f"> <-- 前回の入力</font>     
+    --- C-n を 1 回入力 ---
+</PRE>
+ 
+<h4>入力補完機能</h4>
+
+<P>tcsh ではファイル名の一部を入力するだけで、途中までの入力にあうファイルの一覧を表示したり、残りの入力を補完してくれる機能があります。 例えば program といったディレクトリ名を入力しようとして、うっかり入力するディレクトリ名を忘れた場合、次の操作で一覧を表示できます。</P>
+
+<PRE>
+% set ignoreeof    <font color="#adff2f"> <--  間違って C-d で logout しないように禁止</font>
+% ls
+Mail         Wnn6         program          public_html  paint.c
+% cd p     <font color="#adff2f"> <-- p まで打って C-d を押す     </font>
+program/           public_html/          paint.c
+% cd pr    <font color="#adff2f"> <-- pr まで打てば候補は program に確定する。ここで Tab (or C-i)</font>     
+% cd program
+</PRE>
+
+<P>このように補完機能を使って、ファイル名やディレクトリ名を入力すれば、タイプする量を減らして速く入力できるだけでなく、タイプミスをすることが無くなります。積極的に使うようにして下さい。</P>
+
+<P>(注) tcsh で補完候補を表示したときの program/ などに付いている &quot;/&quot;
+は、 候補がディレクトリであることを表しています。</P>
+
+<p>
+<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="0">
+<TR>
+<TD>ファイル名(ディレクトリ名)の補完候補一覧を表示</TD>
+<TD><b>C-d</b></TD></TR>
+<TR>
+<TD>ファイル名(ディレクトリ名)の補完</TD>
+<TD><b>C-i</b>, Tabキー</TD></TR>
+</TABLE>
+</p>
+<hr>
+<A HREF="index.html">TOP</A> / <A HREF="unix02.html">UNIX の基礎 (2)</A>
+
+</BODY>
+</HTML>

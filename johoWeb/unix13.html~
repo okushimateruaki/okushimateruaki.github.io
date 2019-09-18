@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第１3〜１５回） 課題演習
+</title>
+<body>
+</head>
+<A HREF="unix12.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<!-- <A HREF="unix14.html">NEXT</A> -->
+
+<h2>（第１3〜１５回） 最終課題演習</h2>
+<h3>目標</h3>
+<p>
+<p>最終課題演習では、
+<ol>
+<li>第１１回、第１２回の課題演習についてより深く考察し、
+その結果をレポートにまとめてもらいます。
+<li>
+余裕のある人には発展問題としてルンゲクッタ法や、
+摩擦のあるときの放物運動と最大飛距離の問題にも取り組んでもらいます。
+</ol>
+<p>レポート作成にはLatexを用います。
+
+提出されたレポートをもとに、
+学習や研究に役立つ計算機の使用が出来ているかについて評価します。
+<ul>
+<li>
+レポートが簡潔で正確に書かれているか
+<li>
+Ｃ言語によるプログラミングが作成、実行できるか
+<li>
+gnuplotによるグラフ表示が有効に利用できるか
+<!-- <li> -->
+<!-- LaTeX による文書が作成できるか -->
+</ul>
+<p>などが、評価のポイントです。
+
+
+
+<h3>必修課題: Latexによるレポート作成</h3>
+<p>
+以下のLatexソースのテンプレートに追記、修正することで、
+各自の考察結果をレポートにまとめよう。
+レポートに必要とされる内容は、
+<ol>
+<li>
+ソースコードが記述されていること。
+<li>
+計算結果がグラフで分かりやすく示されていること。
+<li>
+計算結果に関する物理的考察が与えられていること。
+</ol>
+<p>
+です。<em>参考資料</em>
+(<a href="./unix05.html"> LaTeX 文書作成入門</a> | 
+<!-- <a href="./saishyu_report_utf.pdf"> 課題レポート作成例</a> | -->
+<a href="http://www002.upp.so-net.ne.jp/latex/kigou_all.html">Latex記号一覧</a> |
+<a href="http://www002.upp.so-net.ne.jp/latex/greece.html">ギリシャ文字</a>)
+
+
+<pre class="source">
+%
+%
+% Latexテンプレート
+%
+%
+\documentclass[11pt]{jarticle}
+\usepackage{amsmath,amssymb}
+\usepackage{ascmac}
+\usepackage{graphicx}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\dbltopfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\dblfloatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{3}
+\begin{document}
+\title{放物運動の数値計算について}
+\author{<font color="#ff2fad">名前　学生番号</font>} 
+\maketitle
+\begin{abstract}
+<font color="#ff2fad">概要のこの箇所では、各自がこのレポートで調べて分かったことを簡潔に記述してください。</font>
+\end{abstract}
+
+\section{物体の運動方程式と数値計算法}
+<font color="#ff2fad">
+(レポートの書き出しの例）
+</font>
+本レポートでは、
+空気抵抗の無視できる物体の放物運動について考察する。
+......
+と表されることが知られている\cite{parity}。
+% <font color="#ff2fad">\cite{parity}では参考文献の文献番号を参照してます。</font>
+.......
+
+% <font color="#ff2fad">複数行の数式はalign環境で</font>
+\begin{align}
+m\frac{d^2 x}{dt^2}&=-b v\frac{dx}{dt} \\
+m\frac{d^2 y}{dt^2}&=-mg-b v\frac{dy}{dt}
+\end{align}
+% <font color="#ff2fad">&のところで数式は揃えられます</font>
+
+\section{オイラー法による数値解\label{sec:euler}}
+% <font color="#ff2fad">\label{ラベル}で章の番号をラベルできます。</font>
+...
+\begin{align*}
+v_{n-1}=\sqrt{(v_{x,n-1})^2+(v_{y,n-1})^2}
+\end{align*}
+である。
+% <font color="#ff2fad">align*環境では数式に番号がつきません</font>
+
+% <font color="#ff2fad">プログラムのソースコードを記述するにはverbatim環境をつかう</font>
+\begin{verbatim}
+% <font color="#ff2fad">ここにソースコードを記述する</font>
+#include ...
+#define  PI 3.141592
+int main(int argc,char *argv[]){ 
+ ......
+ ......
+  return 0;
+}
+\end{verbatim}
+
+
+% <font color="#ff2fad">グラフの読み込みはfigure環境でincludegraphicsすればいい</font>
+次のグラフは、
+$dt$ごとの座標値$x,y$のデータから
+その軌跡を描いたものである。
+\begin{figure}[t]
+\center
+\includegraphics[width=8cm]{kidou_nennsei.eps(←ここは各自のファイ名を入れる)}
+\caption{
+% <font color="#ff2fad">ここはキャプションといって図の説明をかくところです。</font>
+初速度$v=10$ m/s、
+$\theta=45^\circ$で打ち出されたピンポン球の運動の軌跡（$t \le 1.5$ s）。
+時間刻みは
+$dt=0.125,0.0015625,0.0001953125$ s。}
+\end{figure}
+
+
+\section{数値解の精度}
+ここでは、数値解の精度について考察する。
+1次解法のオイラー法を採用したので時刻$t$での数値解の誤差$\Delta$は、
+$C$をある定数として
+\begin{align}
+\Delta\equiv \|\text{時間刻み}dt\text{での数値解}-\text{真の解}\|
+\sim C dt
+\label{eq:gosa} % <font color="#ff2fad">式にeq:gosaとラベルしました</font>
+\end{align}
+なる$dt$依存性を持つ。
+% <font color="#ff2fad">数式中の文字、上の"時間刻み"、"真の解"は\text{}の中に書きます</font>
+.......
+時間刻みが最小の数値解を真の解の代わりに用いて
+式(\ref{eq:gosa})を評価した。
+% <font color="#ff2fad">eq:gosaでラベルされた数式の式番号は\ref{eq:gosa}で参照できます。</font>
+
+\section{最大飛距離について}
+数値計算には、
+\ref{sec:euler}章で説明したプログラムを用いた。
+初期速度が$v_0=1$、角度$\theta=44,45,46$の場合の
+運動の軌跡を図\ref{fig:v0=1}に示した。
+% <font color="#ff2fad">章番号も図番号も\ref{ラベル}で参照できます。</font>
+\begin{figure}[t]
+\center
+\includegraphics[width=10cm]{v1_kidou.eps(←ここも各自でつくったファイル名)}
+ \caption{
+$v_0=1$, 角度$\theta=42,43,44,45,46,47^\circ$の場合の運動の軌跡。
+運動の数値計算にはオイラー法を用いた。
+時間の刻みは$dt=0.0001$で計算した。
+\label{fig:v0=1}
+% <font color="#ff2fad">ここでこのfigureにラベルをつけました。</font>
+}
+\end{figure}
+
+
+\section{飛距離を求めるプログラム}
+
+\section{まとめ}
+計算機を用いて
+.....
+...の効果を取り込んだ計算を行う必要があることが分かった。
+
+\appendix
+% <font color="#ff2fad">\appendixの後ろにあるsectionは付録になります。</font>
+\section{便利なbashコマンド}
+パラメタを振って大量の数値計算する場合に、、、
+
+% <font color="#ff2fad">参考文献はthebibliography環境に記入します</font>
+\begin{thebibliography}{99}
+ \bibitem{parity} % <font color="#ff2fad">bibitemコマンドでラベル付けします</font>
+パリティ物理学コース「一般物理学（上）」、太田信義
+
+ \bibitem{anotherbook}
+物理学叢書11a 「古典力学（上）」、ゴールドスタイン、吉岡書店
+
+
+\end{thebibliography}
+
+\end{document}
+</pre>
+
+
+<!-- <pre class="source"> -->
+<!-- \documentclass[12pt]{jarticle} -->
+<!-- \usepackage{amsmath,amssymb} -->
+<!-- \usepackage{graphicx} -->
+<!-- \begin{document} -->
+
+<!-- \title{空気中の放物運動について} -->
+<!-- \author{<font color="#ff2fad">著者名　学生番号</font>} -->
+
+<!-- \maketitle -->
+
+<!-- 本レポートでは -->
+<!-- 空気中のピンポン球の示す放物運動について考察する。 -->
+
+<!-- 以下の方程式は、 -->
+<!-- 慣性抗力を受けるピンポン球の従う運動方程式である： -->
+<!-- \begin{eqnarray} -->
+<!-- \frac{d^2 x}{dt^2}&=&-b v\frac{dx}{dt} \\ -->
+<!-- \frac{d^2 y}{dt^2}&=&-mg-b v\frac{dy}{dt} -->
+<!-- \end{eqnarray} -->
+<!-- ここで $g$ は重力加速度、$m$ は物体の質量、$v$ 速さ、$b$ は空気抵抗に関係する係数を表す。 -->
+<!-- この方程式を以下の様な条件の下で解く： -->
+
+<!-- 系のパラメータとして -->
+<!-- \begin{equation} -->
+<!-- g=9.8 \text{m/s}^2, m=2.7g, b=0.00048 kg/m -->
+<!-- \end{equation} -->
+<!-- と設定し、初期条件としては、物体は初期時刻 $t=0$ で原点から速度$10$で  -->
+<!-- $x$軸から角度$\theta$の方向に投げ出されたとする、すなわち -->
+<!-- \begin{equation} -->
+<!-- x(0)=0, y(0)=0, v_x(0)=10\cos(\theta), v_y(0)=10\sin(\theta) -->
+<!-- \end{equation} -->
+<!-- である。 -->
+
+<!-- \section{Euler法による数値解} -->
+<!-- この方程式をみたす解をEuler法によって求める。 -->
+<!-- Ｃ言語によるこのプログラムのソースコードは以下の通りである： -->
+<!-- \begin{verbatim} -->
+
+
+<!-- <font color="#ff2fad">この場所（\begin{verbatim}と\end{verbatim}の間）に各自が作成したソースコードを書き加える</font> -->
+
+
+<!-- \end{verbatim} -->
+
+<!-- このプログラムは、３つのコマンドライン引数をもつ。 -->
+<!-- 第１の引数は物体の投げ出される角度 $\theta$、第２の引数は終了時刻、 -->
+<!-- 第３の引数は時間の刻み幅である。 -->
+
+<!-- このプログラムを用いて運動する物体の座標を出力し、 -->
+<!-- その座標をgnuplot を用いてグラフを出力した。 -->
+
+<!-- 次のグラフは、時間刻みを$dt=0.125,0.0125,0.00125$と変えて -->
+<!-- その軌跡を描いたものである。このグラフより$dt$が小さくなると同じ曲線に収束していることが分かる。 -->
+
+<!-- \begin{figure}[hb] -->
+<!-- \centering -->
+<!--  \includegraphics[width=10cm]{<font color="#ff2fad">ここに各自が作成したepsファイルのファイル名を書く</font>} -->
+<!--  \caption{$\theta=45^\circ$、終了時刻$=1.5$、時間の刻みは -->
+<!-- $dt=0.125,0.0125,0.00125$ -->
+<!-- } -->
+<!-- \end{figure} -->
+
+
+<!-- \section{数値解の精度} -->
+<!-- ここでは、数値解の精度について考察する。 -->
+<!-- 1次解法のEuler法を採用したので$t=1.5$秒のときの誤差$¥Delta$は -->
+<!-- \begin{equation} -->
+<!-- \Delta(dt)=C dt -->
+<!-- \end{equation} -->
+<!-- に従う。 -->
+<!-- 解析的な解を求めることは不可能なので、次式を用いて精度を確かめる。 -->
+<!-- \begin{equation} -->
+<!-- \Delta(dt)-\Delta(dt/2) -->
+<!-- =C' dt -->
+<!-- \end{equation} -->
+
+<!-- 次の図は$\Delta(dt)-\Delta(dt/2)$を$dt$の関数として示したグラフである。 -->
+<!-- このグラフより -->
+<!-- $\Delta(dt)-\Delta(dt/2) \sim dt$ -->
+<!-- の関係が成立していることが分かる。つまり、 -->
+<!-- Euler法の収束性で計算が実行されていることが確かめられた。 -->
+<!-- \begin{figure}[hb] -->
+<!-- \centering -->
+<!--  \includegraphics[width=10cm]{<font color="#ff2fad">ここに各自が作成したepsファイルのファイル名を書く</font>} -->
+<!--  \caption{$\theta=45^\circ$、終了時刻$=1.5$、 -->
+<!-- $\Delta(dt)-\Delta(dt/2)$をdtの関数としてプロットした。 -->
+<!-- 時間の刻みは$dt=0.125,0.0125,0.00125$ -->
+<!-- } -->
+<!-- \end{figure} -->
+
+<!-- \section{最大飛距離について} -->
+<!-- 本章では、 -->
+<!-- 最大飛距離を数値的に調べる。 -->
+
+<!-- $x,y=0$で投げ出されたピンポン球が -->
+<!-- 再び$y=0$に戻ってくる地点を求めるようにプログラムを修正した。 -->
+<!-- Ｃ言語によるこのプログラムのソースコードは以下の通りである： -->
+<!-- \begin{verbatim} -->
+
+
+<!-- <font color="#ff2fad">この場所（\begin{verbatim}と\end{verbatim}の間）に各自が作成したソースコードを書き加える</font> -->
+
+
+<!-- \end{verbatim} -->
+
+<!-- このプログラムは、2つのコマンドライン引数をもつ。 -->
+<!-- 第１の引数は物体の投げ出される速さ $v_0$、 -->
+<!-- 第２の引数は角度 $\theta$である。 -->
+
+<!-- このプログラムを用いて -->
+<!-- $v_0=10$m/sの場合に、 -->
+<!-- 様々な$\theta$で -->
+<!-- 飛距離を求めた結果を下図に示した。 -->
+<!-- \begin{figure}[hb] -->
+<!-- \centering -->
+<!--  \includegraphics[width=10cm]{<font color="#ff2fad">ここに各自が作成したepsファイルのファイル名を書く</font>} -->
+<!--  \caption{$\theta=45^\circ$、終了時刻$=1.5$、 -->
+<!-- $\Delta(dt)-\Delta(dt/2)$をdtの関数としてプロットした。 -->
+<!-- 時間の刻みは$dt=0.125,0.0125,0.00125$ -->
+<!-- } -->
+<!-- \end{figure} -->
+<!-- これより、 -->
+<!-- 最大飛距離を与える角度が$\theta\simeq $ -->
+<!-- であることが分かる。 -->
+
+<!-- さらに、 -->
+<!-- 初期速度が$v_0=20,30$の場合についても -->
+<!-- 同様の計算を行い、最大飛距離をあたえる角度$theta$を -->
+<!-- 初期速度の関数として調べた。 -->
+
+<!-- \end{document} -->
+<!-- </pre> -->
+
+
+
+
+
+<h3>発展問題</h3>
+<b>上記の必修課題が出来た人</b>は
+以下の発展問題にチャレンジしてください。
+これらの問題以外に興味のある現象などあるばあいは、
+計算機をつかってその現象を考察してください。
+その分析の結果をレポートにまとめてもらってもいいです。
+その内容を成績に反映します。
+
+<h4>ルンゲクッタ法</h4>
+<h5>発展課題０</h5>
+オイラー法よりも高精度な<a href="./rk.html">ルンゲクッタ法</a>
+を用いて放物運動を必修課題と同様にして考察する。
+
+<h4>空気抵抗</h4>
+上記課題では空気抵抗を無視したが、
+その効果が放物運動に与える影響について
+以下のように考察を進める。
+
+
+<h5>空気抵抗</h5>
+<p>空気中を運動する物体は、空気から
+速さに比例する粘性力と
+速さの2乗に比例する慣性力とを受ける。<br>
+半径Rの球状の物体が受ける<br>
+粘性抗力は F<sub>粘性</sub>=6πηR v<br>
+慣性抗力は F<sub>慣性</sub>=πc ρ(R v)<sup>2</sup>/2<br>
+である。ここで vは物体の速さで、ηは空気の動粘性係数
+μ＝1.8×10<sup>－５</sup> Ｎ･sec/ｍ<sup>２</sup>（15 ℃）
+、cの空気抵抗係数は0.3、
+ρは空気密度1.2kg/m<sup>3</sup>
+である。
+速さvが小さいときには粘性 > 慣性 となり、
+vが大きいときには粘性 < 慣性となることが分かる。<br>
+より詳しくは、
+レイノルズ数という指標を用いて判定することができる。
+レイノルズ数Reは
+~ F<sub>慣性</sub>/F<sub>粘性</sub>
+~ ρRv/η<br>
+と定義される。
+Re<1のとき、F<sub>粘性</sub>だけ
+Re>1000のとき、F<sub>慣性</sub>だけ
+1< Re <1000のときは、両方が寄与する。
+
+<h5>ピンポン球の受ける空気抵抗</h5>
+<p>速さ10 m/sで運動するピンポン球の受ける空気抵抗を考えよう。
+ピンポン球は、直径40mm・重さ2.7gである。
+v=10 m/sのときの
+レイノルズ数は、上式よりRe~10000となる。
+この評価より、
+ピンポン球が受ける空気抵抗は主に慣性抗力であることが分かる。
+
+<h5>空気中の斜方投射</h5>
+時刻t=0に原点から
+初速度 v<sub>0</sub>
+角度Θでピンポン球を斜方投射したとする。
+
+<h5>発展課題1: プログラム作成</h5>
+<p>
+空気抵抗と重力を受けるピンポン球に対する運動方程式<br>
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=\frac{dx}{dt}=v,\\[10pt]
+\frac{dy}{dt}=u,\\[10pt]
+m\frac{dv}{dt}=-b\sqrt{v^2%2Bu^2} v,\\[10pt]
+m\frac{du}{dt}=-mg-b\sqrt{v^2%2Bu^2} u" /><br>
+<!--   <IMG src="./joho11files/eul02.gif" border="0"><br> -->
+を解くオイラー法のプログラムを作成せよ。
+ここで、b=
+πc ρR<sup>2</sup>/2 である。<br>
+
+ただし、このプログラムは、コマンドライン引数から
+初速度、投射角、終了時間、時間刻み
+の入力を受け入れるものとする。
+
+<h5>発展課題２: プログラムの精度チェック</h5>
+<p>ピンポン球を初速度10 m/s、角度45で斜方投射した場合のピンポン球の運動を
+考えよう。
+
+課題１のプログラムを用いて
+時間刻みΔtをさまざまに変化させながら
+t=1.5秒後のx,yの値を計算しよう。
+
+(x,y)の値のΔt依存性を調べることで、
+数値計算法の理論精度が達成されていることを確かめよ。
+
+
+<h5>発展課題３: 空気抵抗のある場合の最大飛距離</h5>
+<p>
+空気抵抗と重力を受ける場合に、飛距離を計算するプログラムを作成し、
+さまざまな初速度v<sub>0</sub>のもとで最大飛距離となる角度Θを求めよ。
+
+
+
+
+<h3>最終課題の提出について</h3>
+<p>
+課題1,2,3に取り組み、
+課題4に従ってLatexでレポートをまとめる。
+このLatexソースをコンパイルして出来るdviファイルをA4用紙に印刷し、
+ホチキス止めしたものをたものを
+<em>情報処理演習のレポート試験の答案として提出</em>すること。<br>
+最終課題レポートの提出の
+締め切り期限および場所は<a href=./index.html#teishutu>ここを参照</a>のこと。
+
+<hr>
+<A HREF="unix12.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<!-- <A HREF="unix14.html">NEXT</A> -->
+
+
+</body>
+
+</html>

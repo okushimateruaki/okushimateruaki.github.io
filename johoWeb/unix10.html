@@ -1,0 +1,217 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第１０回）数値計算の基礎：級数、積分、数列の計算</title>
+<body>
+</head>
+<A HREF="unix09.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix11.html">NEXT</A>
+
+<h2>（第１０回）数値計算の基礎：級数、積分、数列の計算
+</h2>
+
+<p>
+科学技術計算における数値計算の基礎を、
+幾つかの例題を通して演習します。
+</p>
+
+
+<h3>演習課題１</h3>
+<p>
+　以下のソースコードは、 1/k<sup>2</sup> の k=1 から k=n までの和を求める関数を定義し、<br>
+n=1,...,10 について、その和を印字するものである。
+</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+double sum(int n){
+  int k;
+  double s;
+
+  s=0.0;
+  for(k=1 ; k&lt=n ; k++)
+    s=s+1/double(k*k);
+  return s;
+}
+
+int main(){
+  int n;
+
+  for(n=1 ; n&lt=10 ; n++)
+    printf("n=%d までの和は %.18f\n",n,sum(n));
+  return 0;
+}
+</pre>
+<p>
+<strong>実行結果</strong><br>
+<pre>
+% ./a.out 
+n=1 までの和は 1.000000000000000000
+n=2 までの和は 1.250000000000000000
+n=3 までの和は 1.361111111111111160
+n=4 までの和は 1.423611111111111160
+n=5 までの和は 1.463611111111111196
+n=6 までの和は 1.491388888888888875
+n=7 までの和は 1.511797052154195020
+n=8 までの和は 1.527422052154195020
+n=9 までの和は 1.539767731166540754
+n=10 までの和は 1.549767731166540763
+%
+</pre>
+<p>
+<strong>解説</strong><br>
+
+変数宣言にある <tt>double</tt>(倍精度浮動点小数) は <tt>float</tt>(単精度浮動点少数) とほぼ同じものですが、<br>
+より精度の高い実数型変数です。科学技術計算における数値計算においては、<tt>double</tt>を用いることが多いです。<br>
+
+９行目にある <tt>s=s+1/double(k*k);</tt> にある <tt>double</tt> は、整数型の <tt>k*k</tt> を <tt>double</tt> 型に
+変換して計算させることの指示です。この型変換を <em>キャスト</em> と呼んでいます。<br>
+
+
+<strong>課題</strong><br>
+  上記のソースコードを参考にして、 n=100 までの、1/n<sup>3</sup>, 1/(2 n)<sup>2</sup>, (-1)<sup>n</sup>/n 
+の和をを出力するプログラムを作れ
+<pre>
+% ./a.out 
+n=100 までの和は 1.202007400659678149
+n=100 までの和は 0.408745975046223065
+n=100 までの和は -0.688172179310195697
+</pre>
+</p>
+
+
+<h3>演習課題２</h3>
+<p>
+以下のプログラムは、長方形公式を用いて関数 <tt>sin(x)</tt>を 区間<tt>[0,3.141592]</tt> 上で数値積分（積分の近似計算）
+を行うものである。
+</p>
+
+<pre class="source">
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+double numinteg(double a, double b, int n){
+  int i;
+  double integ;
+  double dx;
+
+  integ=0.0;
+  dx=(b-a)/n;
+  for(i=0;i&lt;n;i++)
+    integ=integ+sin(a+dx*i)*dx;
+  return integ;
+}
+
+int main(){
+  int n;
+
+  for(n=1;n&lt=10;n++)
+    printf("分割数=%d 数値積分の結果=%.16f\n",n,numinteg(0.0,3.141592,n));
+}
+
+</pre>
+<p>
+<strong>実行例</strong><br>
+</p>
+<pre>
+% ./a.out
+分割数=1 数値積分の結果=0.0000000000000000
+分割数=2 数値積分の結果=1.5707959999999161
+分割数=3 数値積分の結果=1.8137991009567820
+分割数=4 数値積分の結果=1.8961186849494840
+分割数=5 数値積分の結果=1.9337654205042751
+分割数=6 数値積分の結果=1.9540970813917402
+分割数=7 数値積分の結果=1.9663165461630812
+分割数=8 数値積分の結果=1.9742314843629256
+分割数=9 数値積分の結果=1.9796507056276733
+分割数=10 数値積分の結果=1.9835234417105918
+%
+</pre>
+<p>
+<strong>解説</strong><br>
+　関数 <tt>numinteg(double a,double b, int n)</tt> は区間 <tt>[a,b]</tt> を <tt>n</tt> 等分し、
+関数 <tt>sin(x)</tt> とx軸との間の図形を近似する <tt>n</tt> 個の長方形の面積の和を計算するように定義されています。<br>
+　分割の個数 <tt>n</tt> が大きくなるに従って、真の値(=2)に近づいていくことがわかります。<br>
+  <em>#include &lt;math.h&gt;</em> は、さまざまな数学関数を用いるときに必要です。教科書 p204,p205 参照。<br>
+
+<strong>課題</strong><br>
+　関数 <tt>√(1-x<sup>2</sup>)</tt> を区間 <tt>[0,1]</tt> 上で数値積分するプログラムを作れ。
+ただし、分割を 10,20,...,100 のそれぞれとして計算し、結果を印字せよ。<br>
+　<em>(注）√ xはＣ言語では sqrt(x)という関数で計算できる</em>
+</p>
+<pre>
+% ./a.out
+分割数=10 数値積分の結果=0.8261295815620796
+分割数=20 数値積分の結果=0.8071162199387455
+.
+.
+.
+分割数=100 数値積分の結果=0.7901042579447618
+%
+</pre>
+
+<h3>演習課題３</h3>
+<p>
+以下のソースコードは、２つの <tt>double</tt> 型変数の差の絶対値を与える関数 <tt>dif(double x, double y)</tt> を
+定義し、<br>
+これを利用して√２に収束する数列 x<sub>1</sub>=2.0, x<sub>n+1</sub>=(x<sub>n</sub><sup>2</sup>+2)/(2x<sub>n</sub>) の２項間の誤差が
+<tt> 0.00001 </tt> 以下になるまで繰り返すことによって、√２の近似値を求めるものである。
+</p>
+
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+double dif(double x, double y){
+  if(x>y)
+    return x-y;
+  else
+    return y-x;
+}
+
+
+main(){
+  double a,b;
+
+  a=2.0;
+  b=(a*a+2)/(2*a);
+  while(dif(a,b)>0.00001){
+    a=b;
+    b=(a*a+2)/(2*a);
+  }
+  printf("%f\n",b);
+}
+
+</pre>
+<p>
+<strong>解説</strong><br>
+　変数 a,b はそれぞれ、数列の隣り合う二項を格納するために宣言してある。
+最初に、a に初項 b に第二項を代入しておき、隣接二項の差　<tt>dif(a,b)</tt> が求める精度より大きい場合は、a,b を次の項に変化させて同じことを繰り返します。<br><br>
+
+<strong>課題</strong><br>
+　このソースコードを利用して、演習課題２のプログラムが分割 <tt>n</tt> に関する２項間の誤差が 0.00000001 
+以下になるまで計算を繰り返すプログラムを作れ。<br><br>
+　<em>参考</em> 演習課題２に表れる積分は正確に計算できて（微積分の教科書参照）、その正確な値は π/4=0.78539816339744830962... になります。
+この演習の方法による数値計算の結果は、わりと誤差が大きいことに気がつくと思います。
+
+
+
+<h3>今日の提出課題</h3>
+<p>
+演習課題３で作成したプログラムのソースコードを印刷して提出すること。<br>
+</p>
+
+
+<hr>
+<A HREF="unix09.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix11.html">NEXT</A>
+
+</body>
+
+</html>

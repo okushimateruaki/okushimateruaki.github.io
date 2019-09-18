@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第８回）Ｃ言語の関数定義</title>
+</head>
+<body>
+<A HREF="unix07.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix09.html">NEXT</A>
+
+<h2>（第８回）Ｃ言語の関数定義</h2>
+
+<h3>目標</h3>
+<p>数学的な関数を定義したり、
+決まった手続きを何度も行う場合は、
+関数をうまく定義する事で小さく読みやすいソースコードを書くことが出来ます。
+<p>今回の演習では、関数を使ったソースコードを書く練習をしましょう。
+
+
+<h3>関数</h3>
+<p>
+数学では関数 f は、<br>f: 実数 -> 実数, f(x)=a+b x+...<br>
+などど定義します。
+C言語での関数の定義も同様に
+<pre class="source">
+返り値の型 f(引数の型 x){
+  return a+b*x+..;
+}
+</pre>
+<p>とします。
+
+<h4>課題１</h4>
+<p>
+　教科書（プログラミング言語Ｃ）P30、べき乗を計算するプログラムのソースコードを入力し、コンパイル＆実行せよ。<br>
+　このプログラムは <tt>2<sup>i</sup></tt>、<tt>(-3)<sup>i</sup></tt> を <tt>i=0,1,...,9</tt> まで計算して印字するものです。</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+int power(int base, int n);　　　<font color="red">mainよりも後ろでpowerを定義しているので宣言だけしておく</font>
+
+/* べき乗関数をテストする */
+int main(){
+  int i;
+
+  for (i = 0; i &lt; 10; ++i)
+    printf("%d %d %d\n", i, power(2,i), power(-3,i));
+  return 0;
+}
+
+/* power:  base を n のべき乗する ; n >=0 */
+int power(int base, int n){
+  int i, p;
+
+  p = 1;
+  for (i = 1; i &lt;= n; ++i)
+    p = p * base;
+  return p;
+}
+</pre>
+<p>
+<strong>実行結果</strong><br>
+<pre>
+% ./a.out
+0 1 1
+1 2 -3
+2 4 9
+3 8 -27
+4 16 81
+5 32 -243
+6 64 729
+7 128 -2187
+8 256 6561
+9 512 -19683
+%
+</pre>
+
+<h4>課題２</h4>
+<p>演習問題１のプログラムを修正する事で、<tt>base</tt> と戻り値を <b>float</b> 型にした <tt>power</tt> 関数を定義し、
+<tt>2.5<sup>i</sup></tt>、を <tt>i=0,1,...,9</tt> について印字するプログラムを作れ。<br><br>
+<strong>実行結果</strong><br>
+<pre>
+% ./a.out
+0 1.000000
+1 2.500000
+2 6.250000
+3 15.625000
+4 39.062500
+5 97.656250
+6 244.140625
+7 610.351562
+8 1525.878906
+9 3814.697266
+</pre>
+</p>
+<em>（コメント）</em> 指数も実数型にしたベキ乗関数 <b>float power(float base, float n)</b> を作るのは簡単ではない。
+興味のある人は、微積分の教科書を調べて考えてみよう。
+
+<!--
+<h3>演習課題３</h3>
+<p>　与えられた整数型変数 <tt>n</tt> に対して <tt>1<sup>3</sup>+2<sup>3</sup>+...+n<sup>3</sup></tt> を与える関数 
+<b>int csum(int n)</b>を定義し、<tt>n=1,2,...,9</tt> について計算し、印字するプログラムを作れ。<br><br>
+<strong>実行結果</strong><br>
+<pre>
+1 1
+2 9
+3 36
+4 100
+5 225
+6 441
+7 784
+8 1296
+9 2025
+</pre>
+-->
+
+<!--
+<h3>演習課題４</h3>
+<p>　２次元で、空気抵抗が無く下向きに一様な重力が働く場合の運動を考える。
+２次元空間の座標を <tt>(x,y)</tt> で表すことにし、重力加速度 <tt>g=4.9</tt> とすれば、<tt>t=0</tt> で原点を初速 
+<tt>(v<sub>x</sub>,v<sub>y</sub>)</tt> で発射された物体の座標は 
+<tt>x=v<sub>x</sub>t, y=4.9t<sup>2</sup>+v<sub>y</sub>t</tt> で与えられることを利用して、
+</p>
+-->
+
+
+<h4>課題3</h4>
+<p>与えられた整数型変数 <tt>n</tt> に対して <tt>n</tt>個の <tt> '@' </tt>記号を印字する関数 <tt>hist(int n)</tt> 
+を以下の様に定義した。<br>
+<pre class="source">
+void hist(int n){
+  int i;
+  for (i=0;i &lt; n; i++)
+    putchar('@');
+  putchar('\n');
+}
+</pre>
+<p>ここで戻り値の型が <b>void</b> となっていますが、voidは空隙をあらわす英単語で、
+これは「戻り値の無い関数」を意味します。<br>
+これを利用して、以下の様な出力が得られるプログラムを作りなさい。
+<pre>
+@
+@@
+@@@
+@@@@
+@@@@@
+@@@@@@
+@@@@@@@
+@@@@@@@@
+@@@@@@@@@
+@@@@@@@@@@
+</pre>
+
+<p>ヒント：以下のプログラムは @ を１０個印字するものです．これを参考にしてください．</p>
+
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+void hist(int n){
+  int i;
+  for (i=0;i &lt; n; i++)
+    putchar('@');
+  putchar('\n');
+}
+
+int main()
+{
+  hist(10);
+  return 0;
+}
+
+
+</pre>
+
+<h3>発展課題</h>
+<h4>課題4</h4>
+<p>　課題３と<a href="./unix07.html">前回の演習課題４</a> 
+<!--
+<a href ="./sam/u8k4.c">（解答例１）</a>
+<a href ="./sam/u8k4-2.c">（解答例２）</a>
+-->
+を組み合わせることによって、
+入力文字の中から各数字 '0'~'9' の出現回数に応じて '@' を印字することで、
+出現回数を表す棒グラフを印字するプログラムを作れ。<br>
+また実行テストとしてファイル /homer/se/tea/okushima/Examples/random.dat を入力し、結果をファイル out.dat として
+出力せよ。<br><br>
+<strong>完成予定図(実際は値が少し違います)</strong>
+</p>
+
+<pre>
+% cat out.dat
+数　個数　グラフ
+ 0  18  @@@@@@@@@@@@@@@@@@
+ 1  21  @@@@@@@@@@@@@@@@@@@@@
+ 2  29  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ 3  14  @@@@@@@@@@@@@@
+ 4  11  @@@@@@@@@@@
+ 5  14  @@@@@@@@@@@@@@
+ 6  13  @@@@@@@@@@@@@
+ 7  15  @@@@@@@@@@@@@@@
+ 8  16  @@@@@@@@@@@@@@@@
+ 9  20  @@@@@@@@@@@@@@@@@@@@
+</pre>
+
+
+
+<h4>課題5</h4>
+<p>以下のソースコードは、入力された正の整数に対して、その桁数を与える関数 <b>int dnum(int n)</b> と、
+<tt> m</tt>桁目の位の数を与える関数 <b>int pnum(int n, int m)</b> を定義し、
+整数「1234」の桁数と各桁の数を印字するものである。<br>
+これを利用して、与えられた正の整数を漢数字にして表示する関数を定義し、
+「1234」を漢数字として「千二百三十四」と表示させるプログラムを作りなさい。<br>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+int dnum(int n);         /* 整数 n の桁数を与える関数 */
+int pnum(int n, int m);  /* 整数 n の m 桁目の位の数を与える関数 */
+
+main(){
+  int i;
+  printf("%d \n",dnum(1234));
+  for(i=1;i&lt;=dnum(1234);i++)
+  	printf("%d 桁目は %d\n",i,pnum(1234,i));
+}
+
+int dnum(int n){
+  int i;
+  i=1;
+  while((n=n/10) > 0)
+    i++;
+  return i;
+}
+
+int pnum(int n, int m){
+  m--;
+  while(m > 0){
+    n = n /10;
+    m--;
+  }
+  return n % 10;
+}
+</pre>
+<p>
+<em>ヒント</em> '1'~'9' までの整数が与えられたら、それに対応する漢数字を出力する関数を作っておくと、少し簡単になります。
+</p>
+<pre class="source">
+void printKS(int n){
+  if(n==1)
+    printf("一");
+  else if(n==2)
+    printf("二");
+...
+  else if(n==9);
+    printf("九");
+}
+</pre>
+<p>
+　演算子 <tt>%</tt> は、整数の割算をした余りを与えます。例えば、<tt>5 % 3</tt> は <tt>2</tt> となります。<br><br>
+<!--
+<a href="./printKS.c"> 解答例 </a>
+</p>
+-->
+
+<h3>今日の提出課題</h3>
+<p>
+演習課題3について、ソースコードと出力結果を印刷して提出すること。<br>
+</p>
+
+
+<hr>
+<A HREF="unix07.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix09.html">NEXT</A>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>2次のルンゲ・クッタ法 </title>
+</head>
+<body>
+<A HREF="unix12.html">BACK</A>
+<A HREF="index.html">TOP</A>
+
+
+<h2> 2次のルンゲ・クッタ法 </h2>
+<p>
+ここでは常微分方程式の数値解法（ルンゲ・クッタ(Runge-Kutta)法）について解説します。
+</p>
+
+
+<h4>微分方程式の近似解法　２次ルンゲ・クッタ法（中点法）について</h4>
+<p>
+　オイラー法による近似計算式<br><br>
+<IMG src="./joho12files/eul1.gif" border="0"><br><br>
+
+は、t<sub>k</sub> から、t<sub>k+1</sub>=t<sub>k</sub>+h へ解を進展させるものですが、
+その際、区間の出発点だけの微分値のみを用いていることが原因で<br>
+誤差が h<sup>2</sup> で現れてしまいます。
+それゆえ、オイラー法による近似計算はあまり正確ではなく、実用には向きません。<br>
+
+　そこで、微分値としてt<sub>k+1</sub> と t<sub>k</sub> の中間の値を用い、式を対称化することで
+誤差を減らすことを考えます。<br><br>
+　まず中点での関数値をオイラー法で求め<br><br>
+<IMG src="./joho12files/cent.gif" border="0"><br><br>
+この点での微分値で再びオイラー法を適用させると<br><br>
+<IMG src="./joho12files/eul0.gif" border="0"><br><br>
+という近似式を得ることができます。<br>
+<em>（注意）</em>テイラーの定理を用いることで、この近似式の誤差がh<sup>3</sup>のオーダーであることが証明できます。<br>
+<br>
+　このように、中点の値を用いて近似を行う常微分方程式の数値解法を「２次ルンゲ・クッタ法」あるいは「中点法」呼んでいます。
+<br>
+プログラムの際便利なようにルンゲ・クッタ法での、 t の差分が h で与えられるときの x=φ(t) の差分に関する漸化式を
+与えておきましょう：<br><br>
+<IMG src="./joho12files/run2.gif" border="0"><br><br>
+
+<strong>例</strong>
+<p>
+以下のソースコードは、一次元のバネに取り付けられた物体の運動方程式をルンゲ・クッタ法で解いたものです。<br>
+ここで、質量 m=1, バネ定数=1, 時間の刻み=0.05 としました。
+</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+#define K 1    /* K をバネ定数を表すとしてそれを 1 と定める */
+
+int main(){
+    double t;     /* 時間変数 */
+    double x,xa;   /* xは現在のxの値、xaは次のステップの値 */
+    double xc;    /* xcはxの中点のステップ t+dt/2 での値 */
+    double v,va;  /* vは現在のvの値、vaは前のステップの値 */
+    double vc;    /* vcはvの中点のステップ t+dt/2 での値 */
+    double dt;    /* 時間の刻み */
+	
+    dt=0.05;      /* 時間の刻みを 0.05 にする */
+	
+    x=1.0;        /* 初期条件の設定（初期位置） */
+    v=0.0;       /* 初期条件の設定（初期速度）*/
+	
+    for(t=0.0; t&lt;10; t=t+dt){ /* 0秒から10秒まで dt 刻みで計算 */
+
+        printf("%f %f\n",t,x);
+
+        xc=x+v*dt/2;    /* 中点の座標を求める */
+        vc=v-K*x*dt/2;
+
+        xa=x+vc*dt;     /* 中点での微分値を用いて、次のステップを計算 */
+        va=v-K*xc*dt;
+
+        x=xa;           /*次のステップの値を現在の値とする*/
+        v=va;
+    }
+    return	0;
+}
+</pre>
+
+
+<!--
+<h4>最終課題</h4>
+
+<p>
+<a href="kadai1.html">最終課題</a>を提出しています。
+</p>
+-->
+
+<hr>
+<A HREF="unix12.html">BACK</A>
+<A HREF="index.html">TOP</A>
+
+</body>
+</html>

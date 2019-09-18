@@ -1,0 +1,59 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>日本語文字コード</title>
+</head>
+
+<body>
+<h3>日本語文字コード</h3> 
+
+<h4>日本語文字コード</h4> 
+
+<p>
+計算機は、日本語の文章を処理する際には、一文字ごとに数字を割り当てて符号化してから扱います。この数字のことを文字コードと呼びます。
+日本語を含む国際的な規格として<b>Unicode</b>があり、広く利用されています。
+他の日本語を符号化する方法としては、以下の三種類が広く使われています。
+<ul>
+ <li> <b>JIS コード</b> : インターネットで利用される文字コードです. 8 ビット目を使わずに符号化します。インターネットでメールなどを送る時は 8 ビット目が失われることが多かったため、日本のインターネットで広く利用されるようになりました. iso-2022-jp、JUNET コードとも呼ばれます。</li>
+ <li> <b>EUC</b> : UNIX において日本語を扱うための標準となる文字コードです。正確には日本語 EUC といいますが、日本では単に EUC と呼ばれることが多いようです。</li>
+<li> <b>シフト JIS コード</b> : MS 漢字コードが正式名です。 Windows で使われています。</li>
+</ul>
+</p>
+
+<h4>コード変換プログラム</h4> 
+
+<p>文字コードを変換するコマンド<b>nkf</b> を利用します。
+
+JISコードに変換
+<PRE>
+% nkf -j <i>inputfile</i> > <i>outputfile</i>
+</PRE>
+
+EUCに変換
+<PRE>
+% nkf -e <i>inputfile</i> > <i>outputfile</i>
+</PRE>
+
+シフト JIS コードに変換
+<PRE>
+% nkf -s <i>inputfile</i> > <i>outputfile</i>
+</PRE>
+
+Unicodeに変換
+<PRE>
+% nkf -w <i>inputfile</i> > <i>outputfile</i>
+</PRE>
+</p>
+
+
+<HR>
+<A HREF="index.html">TOP</A> / <A HREF="unix03.html">UNIX の基礎 (3)</A>
+
+</BODY>
+
+</HTML>
+

@@ -1,0 +1,272 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第５回）LaTeX文書作成入門</title>
+</head>
+<body>
+<A HREF="unix04.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix06.html">NEXT</A>
+
+<h2>（第５回）LaTeX 文書作成入門</h2> 
+
+<H3>今日の目標</H3>
+
+<p>
+LaTeX を使った文書作成が出来るようになる。
+</p>
+
+
+
+<!--  <li> <a href="c0.html"> C 言語プログラミングの手始め </a> -->
+<!--  </li> -->
+
+
+
+<h3>LaTeX の手始め</h3>
+
+<h4>LaTeX 文書作成作業の流れについて</h4>
+
+<p>
+<ol>
+<li> emacs などのテキストエディタでソースファイル(source file)を作成する。<br>
+<strong>emacs <i>filename.tex</i></strong></li>
+<li> ソースファイルをコンパイル（LaTeXコード⇒DVI形式）する。<br>
+<strong>platex <i>filename.tex</i></strong></li>
+<li> 出来上がったDVIファイルを閲覧する。<br>
+<strong>xdvi <i>filename.dvi</i></strong></li>
+<li> プリンタで出力する。<br>
+<strong>dvips <i>filename.dvi</i> | lp</strong></li>
+</ol>
+</p>
+
+<h4> 具体的な作業例 </h4>
+<ol>
+<li> ソースファイルの作成。<br>
+次のLaTeXソースファイルを emacs で作成してください（
+<em>最後から２行目の＊＊＊＊は各自の名前・学生番号をタイプすること</em>）。<br>
+ファイル名は <tt>neko.tex</tt> としましょう。
+
+(LaTeXのソースファイルは、常に<tt> .tex </tt>で終わるファイル名にします。)<br>
+
+（ヒント1）日本語入力はControl+￥、もう一度Control+￥で英数入力に戻る<br>
+（ヒント2）\は￥キーで入力できます。
+
+<pre class="source">
+\documentclass{jsarticle}
+\begin{document}
+
+日本で漱石が「吾輩は猫である」を発表したころ，
+ドイツではAlbert Einsteinが特殊相対論を発表した。
+
+この理論によれば，エネルギー $E$ と質量 $m$ は
+\begin{equation}
+  E = mc^{2}
+\end{equation}
+で関係づけられる。ここに $c$ は光速で，
+\begin{equation}
+  c = 299{,}792{,}458 \, \mathrm{m/s}
+\end{equation}
+である。
+
+（この文章は<font color="red">＊＊＊＊</font>によってタイプされました。）
+
+\end{document}
+</pre>
+(<a href="http://oku.edu.mie-u.ac.jp/~okumura/texwiki/">TeX Wiki TeX 入門</a> より引用)
+</li>
+
+<li> コンパイル <br>
+LaTeXソースファイルのコンパイルは <b>platex</b> というコマンドを用います。<br>
+以下を実行すると、<tt>neko.tex</tt>をコンパイルして、新たに<tt>neko.dvi</tt>というファイルと、<tt>neko.aux, neko.log</tt>を作成します。<br>
+<tt> .dvi </tt>で終わるファイルが DVI 形式ファイルと呼ばれ、文書の文字配置の情報を含んだファイルです。
+<pre>
+% platex neko.tex
+</pre>
+
+様々なメッセージが出力されると思いますが、これは処理の進行具合を表示しているものです。<br>
+<tt>neko.dvi</tt>が作成されたことを <b>ls</b> で確認しましょう。<br>
+もし何らかの間違いが検出されたときは、LaTeXコンパイラは処理を中断して、今後の処理をどうするか尋ねます。<br>
+その場合は <b>x</b> をタイプして強制終了してください。そしてemacsでソースファイルの間違いを修正し、再びコンパイルします。<br>
+
+<li>DVIファイルの閲覧<br>
+DVIファイルの閲覧は <b>xdvi</b>コマンドです。
+以下の様にすれば、ディスプレイ上で作成した <tt>neko.dvi</tt>を閲覧することができます。
+<pre>
+% xdvi neko.dvi
+</pre>
+うまく出力されましたか？出力結果が期待（仕様）どおりになれば、LaTeX文書作成は終了です<br>
+もし、期待通りに出力されない場合はソースコードを修正するところからやり直して、期待通りになるまで繰り返すことになります。
+</li>
+
+<li>プリンタへの出力<br>
+xdvi によって DVI ファイルの閲覧した結果、文章が完成したと判断できた場合は、それをプリンタで出力
+することになります。<br>
+まず<b>dvips</b>コマンドでDVI形式ファイルをPS形式（プリンタに適応した形式）ファイルに変換し、
+それをプリントアウトします。<br>
+pre>
+% dvips neko.dvi
+% lp neko.ps 
+</pre>
+</li>
+</ol>
+
+
+
+
+
+<h4>グラフを LaTeX 文章の中に取り込む</h4>
+
+<p>
+下の LaTeX ファイルは、先ほど作成したグラフを LaTeX 文章の中に取り込んだ文章の例です。<br>
+各自入力しましょう。ただし、<em><b>著者名 学生番号</b>とあるところは、各自の名前、学生番号をタイプすること。</em><br>
+ファイル名は <tt>taylor.tex</tt> としましょう。
+</p>
+
+<pre class="source">
+\documentclass[12pt]{jsarticle}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\begin{document}
+
+\title{テーラー展開}
+\author{<font color="red">著者名 学生番号</font>}
+
+\maketitle
+
+関数$f(x)$ を$x$のベキ関数で展開すると以下のようになる。
+\begin{equation}
+ f(x) = f(x_0) + \frac{d f}{dx}(x_0) (x-x_0)
+ + \frac{1}{2!} \frac{d^2 f}{dx^2}(x_0) (x-x_0)^2
+ + \frac{1}{3!} \frac{d^3 f}{dx^3}(x_0) (x-x_0)^3 
+ + \cdots
+\end{equation}
+
+例えば、
+$\sin(x)$ を $x=0$ の周りで展開すると
+\begin{equation}
+  \sin(x) = x - \frac{1}{3!}x^3 + \frac{1}{5!}x^5 + \cdots
+\end{equation}
+となる。
+
+図\ref{fig:taylor}は、$\sin(x)$に関するテイラー展開の様子を表したものである。
+
+\begin{figure}[hb]
+\centering
+ \includegraphics[width=8cm]{taylor.eps}
+ \caption{関数 $\sin(x)$ とその$1$次、$3$次、$5$次までの taylor 展開のグラフ}
+ \label{fig:taylor}
+\end{figure}
+
+展開式の次数が増えるにしたがって、$\sin(x)$ への近似が良くなっていることがわかる。
+
+\end{document}
+</pre>
+
+<p>
+上のファイルを保存したあと、
+<b>platex</b> でコンパイルし <b>xdvi</b> によって閲覧してみてください。
+<pre>
+% platex taylor.tex
+% xdvi taylor.dvi
+</pre>
+<p> gnuplot で作成した図が組み込まれて出力されていると思います。ですが出力をじっくり読んでみると、<b>??</b>となっているところがあると思います。<br>
+これは図番号の参照がうまくいっていないことを表しています。<br>
+もう一度 <b>platex</b> でコンパイルしてください。参照番号がちゃんと更新されるはずです。</p>
+
+<p><strong>プリンタへの出力</strong> </p>
+<p> ps ファイルを作成します。</p>
+<pre>
+% dvips taylor.dvi
+</pre>
+<p> ps ファイルをプリントします。</p>
+<pre>
+% lp taylor.ps
+</pre>
+
+<p>
+(おまけ）PDFファイルとして作成するには、
+</p>
+<pre>
+% dvipdfmx taylor.dvi
+</pre>
+
+<h4>課題の説明</h4>
+
+<pre class="source">
+\documentclass[12pt]{jsarticle}
+</pre>
+<p> フォントサイズ 12、スタイル jsarticle を用いることの指定。</p>
+<pre class="source">
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+</pre>
+<p>追加パッケージ（追加機能）を読み込む。amsmath,amssymb は数学記号処理のパッケージ、
+graphicx はグラフィック（図）を使うためのパッケージです。</p>
+
+<pre class="source">
+\title{テーラー展開}
+\author{著者名 学生番号}
+
+\maketitle
+</pre>
+<p>論文タイトルと著者を指定して、\maketitle で表題を作成します。</p>
+
+<pre class="source">
+\begin{figure}[hb]
+\centering
+ \includegraphics[width=8cm]{taylor.eps}
+ \caption{関数 $\sin(x)$ とその$1$次、$3$次、$5$次までの taylor 展開のグラフ}
+ \label{fig:taylor}
+\end{figure}
+</pre>
+<p>図を挿入します。<br>
+<b>\begin{figure}~\end{figure}</b>で、図を描くスペースを確保し、<br>
+<b>\includegraphics[width=8cm]{taylor.eps}</b>で、<tt>taylor.eps</tt>を組み込み、<br>
+<b>\caption</b> で、図の説明を書き、<br>
+<b>\label{fig:taylor}</b>で、図番号を <tt>fig:taylor</tt>という名前で参照できるようにする。図番号を参照するには：
+</p>
+<pre class="source">
+\ref{fig:taylor}
+</pre>
+<p>のようにすれば、<tt>fig:taylor</tt>が参照する番号を表示する。</p>
+
+<h3>今日の課題</h3>
+<p>例題で作成した文章neko.dviとtaylor.dviを印刷して提出すること<em>（時間内に必須）</em>
+
+
+<!-- <li>例題で作成した文章の内容の中で、例として挙げられている sin(x) を、指数関数 e<sup>x</sup> に代えた文章を作成、印刷して提出すること。ここで e<sup>x</sup> の x=0 の周りでのテーラー展開が<br> -->
+<!-- <center> -->
+<!-- e<sup>x</sup> = 1+x+x<sup>2</sup>/2+x<sup>3</sup>/6+・・・<br> -->
+<!-- </center> -->
+<!-- となることを利用せよ。 -->
+<!-- グラフは， e<sup>x</sup> , 1+x,  1+x+x<sup>2</sup>/2+x<sup>3</sup>/6 の３つ -->
+<!-- ( e<sup>x</sup>と，１次，３次までの展開)を -->
+<!-- 描くこと． -->
+<!-- （次週までに提出可） -->
+
+
+<!-- <h3>今日の課題</h3> -->
+
+<!-- <ol> -->
+<!-- <li>C言語プログラムで作成した<tt>hello.c</tt>を修正し、<br> -->
+<!-- 《Hello, Worldを表示後、行を変えて各自の名前、更に行を変えて学生番号を表示する》<br> -->
+<!-- プログラムを作成せよ。 -->
+<!-- <li>LaTeXの作業例で出力した文書を提出すること。</li> -->
+
+
+<!-- </ol> -->
+
+<hr>
+
+<A HREF="unix04.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix06.html">NEXT</A>
+</body>
+
+</html>

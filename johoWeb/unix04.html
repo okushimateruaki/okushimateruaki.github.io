@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第４回）Gnuplot 入門</title>
+</head>
+<body>
+<A HREF="unix03.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix05.html">NEXT</A>
+
+
+<h2>（第４回）Gnuplot入門</h2> 
+
+<H3>今日の目標</H3>
+<p>
+<p>
+<a href="http://ja.wikipedia.org/wiki/Gnuplot"> GNUPLOT </a>は、Thomas Williams, Colin Kelleyらによって作られたグラフ作成ツールです 。UNIXの他、MS-DOS,MS-WINDOWS,Macintosh等で利用できます。今日はその使い方を学びます。目標は
+  <ol>
+  <li>
+  グラフを画面上で確認できるようになる。
+  <li>eps画像ファイル出力出来るようになる。
+    </ol>
+</p>
+
+<p><a href="http://t16web.lanl.gov/Kawano/gnuplot/">not so Frequently Asked Questions</a>に
+gnuplotの分かり易い解説があります。参考にしてください。
+
+
+<H3>gnuplotの起動</H3>
+ターミナルを開いて
+<pre>
+% cd Documents <font color="green">.....作業ディレクトリに移動して</font>
+% gnuplot
+%
+</pre>
+すると、
+<pre>
+........................
+ 
+Terminal type set to 'x11'
+gnuplot> <span style="background-color:gray;"> </span> 
+</pre>
+
+"gnuplot> " というプロンプトが表示されます．これがgnuplot のコマンドラインで，ここにコマンドを対話的に入力しながら作業を進めます．
+
+
+
+<h4>gnuplot で関数のグラフを描く</h4>
+<p>
+さっそく y=sin(x) のグラフをプロットしましょう
+</p>
+<pre>
+gnuplot> plot sin(x) 
+</pre>
+
+<p>
+別のグラフを描きます（* は掛け算の記号を表します）
+</p>
+<pre>
+gnuplot> plot cos(2*x)
+</pre>
+
+<p>
+２つのグラフを重ねて描きます。
+</p>
+<pre>
+gnuplot> plot sin(x), cos(2*x)
+</pre>
+<p>
+２つのグラフが異なる色で表示されています。右上に色と関数との対応が表示されています。
+</p>
+
+
+<p>
+更にこのグラフの上に別のグラフを重ねることもできます。
+</p>
+<pre>
+gnuplot> replot exp(-x*x)
+</pre>
+
+<p>
+ここで一旦 gnuplot を終了しましょう。quit が終了のコマンドです。
+</p>
+<pre>
+gnuplot> quit
+% 
+</pre>
+
+
+<h4>gnuplot でデータの可視化</h4>
+
+<p>
+まず準備として、各自の~/Documentsでターミナルから
+<pre>
+% emacs 1.dat
+</pre>
+<p>として、ファイル 1.dat を開き、
+次のファイルを作成する。
+<pre class="source">
+0 0 0 
+1 1 1
+2 4 8
+3 9 27
+4 16 64
+5 25 125
+</pre>
+<p>ここで、数字と数字との間はスペースで区切る。
+
+このデータをでグラフ化するため、再び gnuplot を起動する。<br>
+データファイルのグラフ化は plot "ファイル名"です。
+引用符("")が必要であることに注意。
+</p>
+<pre>
+gnuplot> plot "1.dat"
+</pre>
+
+<p>
+データ点ごとに点を描いています。<br>
+同じデータを用いて、描画方法を変更することができます。
+</p>
+<pre>
+gnuplot> plot "1.dat" with line
+</pre>
+
+<p>
+データ点を直線で結んでいます。結果として滑らかな曲線としてのグラフに見えます。<br>
+以下のようにすると棒グラフの様に描画します。
+</p>
+<pre>
+gnuplot> plot "1.dat" with impulse
+</pre>
+
+
+<h4>
+3次元プロットも可視化できます。
+</h4>
+<pre>
+gnuplot> splot [-2:2][-2:2] exp(-(x**2 + y **2))
+gnuplot> set hidden3d
+gnuplot> replot
+gnuplot> set isosample 30,30
+gnuplot> replot
+</pre>
+
+<!-- <h4> -->
+<!-- gnuplot バッチ処理を用いて簡易アニメーション。 -->
+<!-- </h4> -->
+
+<!-- <p> -->
+<!-- まず以下の内容のファイルを emacs で作成しましょう。ファイル名は sample.gpl とします。 -->
+<!-- </p> -->
+<!-- <pre class="source"> -->
+<!-- plot [0:2*pi] [-1:1] sin(x) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-0.25) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-0.5) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-0.75) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-1) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-1.25) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-1.5) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-1.75) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-2) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-2.25) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-2.5) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-2.75) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-3) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-3.25) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-3.5) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-3.75) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-4) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-4.25) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-4.5) -->
+<!-- pause 0.5 -->
+<!-- plot [0:2*pi] [-1:1] sin(x-4.75) -->
+<!-- </pre> -->
+<!-- <p> -->
+<!-- <a href="emacs.html"> emacs </a>  でこのようなファイルを作成する際は、コピー＆ペーストを利用するのがうまい方法です。<br> -->
+<!-- <p><strong>コピー、カット(kill)、ペースト(yank)</strong><br> -->
+<!-- <FONT COLOR="red">●</FONT> -->
+<!-- set-mark-command : <b>C-SPC</b> ここでマークしたところから、現在のカーソル位置までを選択の対象にする<br> -->
+<!-- <FONT COLOR="red">●</FONT> -->
+<!-- kill-region : <b>C-w</b>　領域のカット<br> -->
+<!-- <FONT COLOR="red">●</FONT> -->
+<!-- copy-region-as-kill-nomark : <b>M-w</b>　領域のコピー<br> -->
+<!-- <FONT COLOR="red">●</FONT> -->
+<!-- yank : <b>C-y</b> カットした領域の貼り付け<br> -->
+<!-- </p> -->
+
+<!-- <p> -->
+<!-- 作成したら、再び gnuplot を起動して以下のコマンドを入力してください。 -->
+<!-- </p> -->
+<!-- <pre> -->
+<!-- gnuplot> load "sample.gpl" -->
+<!-- </pre> -->
+
+<!-- <p> -->
+<!-- このアニメーションは, sin(x)のグラフを x 軸方向に 0.25ずらしたものを 0.5秒間隔で表示を繰り返すことで実行しています。<br> -->
+<!-- このように、gnuplot に対する一連の操作をあらかじめファイルで準備する事で、多少込み入ったことも出来るようになります。 -->
+<!-- </p> -->
+
+<h4>
+その他のグラフ
+</h4>
+
+<p>
+パラメータ表示で定義される図形、例えば円{x=cos(t),y=sin(t), 0≦t≦2π}のようなものは次の様にして
+描くことができます。まず
+</p>
+<pre>
+gnuplot> set parametric
+</pre>
+<p>
+とすることで、パラメータ表示モードになります。これ以降 plot や splot コマンドはパラメータ表示でのグラフを描くことになります。たとえば
+</p>
+<pre>
+gnuplot> plot cos(t),sin(t)
+gnuplot> splot cos(u)*cos(v),cos(u)*sin(v),sin(u)
+</pre>
+<p>
+で、円や球面が描けます。パラメータの範囲を指定したいときは
+</p>
+<pre>
+gnuplot> plot [0:pi] cos(t),sin(t)
+gnuplot> plot [0:4*pi] sin(t),sin(2*t)
+</pre>
+<p>
+などとしてください。パラメータ表示モードをやめるときは
+<p>
+<pre>
+gnuplot> unset parametric
+</pre>
+<p>
+です。
+<p>
+
+
+
+
+
+<!-- <h3>今日行う事</h3> -->
+
+<!-- <ol> -->
+<!--   <li><a href="./gnuplot1.html"> gnuplot 入門</a></li> -->
+
+<!-- </ol> -->
+
+
+
+<!-- <h3><strong>復習</strong></h3> -->
+
+<!-- <ul> -->
+<!--  <li> コマンドの使い方について確認です。 -->
+<!--       <ul> -->
+<!--        <li> <b>cp</b> や <b>mv</b> は引数を２つとるコマンドです。 -->
+<!-- <pre> -->
+<!-- % cp foo bar -->
+<!-- </pre> -->
+<!-- 	    とする場合は、<tt>cp</tt> と <tt>foo</tt> の間、 -->
+<!-- 	    <tt>foo</tt> と <tt>bar</tt> の間にスペースを入れてください。</li> -->
+	    
+<!--        <li> <b>cp</b> コマンドなどで、コピー先にファイルが存在する場合は、 -->
+<!-- 	    上書きしてよいか聞いてきます。 -->
+<!-- 	    良い場合は、<b>y</b> をタイプしてください。 -->
+<!-- 	    上書きしたくないときは、<b>n</b> でキャンセルできます。</li> -->
+<!--       </ul> -->
+<!--       </li> -->
+<!--  <li> Emacs については、ほとんどの人がまだ慣れていないと思います。 -->
+<!--       少しずつ覚えて行きましょう。 -->
+<!--       今週は、コピー＆ペーストの作業をしましたので確認します。 -->
+<!--       <ul> -->
+<!--        <li>コピーしたい領域の先頭で<b>C-Space</b>とします。</li> -->
+<!--        <li>コピーしたい領域の最後までカーソルを移動します。</li> -->
+<!--        <li>（行末へ移動<b>C-e</b>などが便利です。）</li> -->
+<!--        <li>領域をコピーするには、<b>M-w</b>です。 -->
+<!-- 	    <b>M-</b> は <b>Alt</b>キーを押しながらという意味です。</li> -->
+<!--        <li>一方、領域をキル（カット）するには <b>C-w</b> です。</li> -->
+<!--        <li>ヤンク（ペースト）は <b>C-y</b> です。</li> -->
+<!--        <li>行をキル（カット）する <b>C-k</b> もよく使われています。</li> -->
+<!--       </ul> -->
+<!--       </li> -->
+<!--  <li> Emacs についてもう一点だけ。 -->
+<!--       <ul> -->
+<!--        <li>Emacs でファイルを編集するとは、 -->
+<!-- 	    <ol> -->
+<!-- 	     <li> 記憶装置にあるファイルのデータを、 -->
+<!-- 		  バッファで開く。</li> -->
+<!-- 	     <li> ユーザは、このバッファに開かれたファイル -->
+<!-- 		  を編集する。</li> -->
+<!-- 	     <li> <b>C-x C-s</b> で保存することで、 -->
+<!-- 		  編集の結果を記憶装置にあるファイルを書き換えた -->
+<!-- 		  ことになる。</li> -->
+<!-- 	     </ol> -->
+<!-- 	    </li> -->
+<!--        <li> Emacs では、同時に複数のファイルを編集することができます。 -->
+<!-- 	    つまり、複数のファイルを複数のバッファに開くことができます。</li> -->
+<!--        <li> バッファを切り替えるには、<b>C-x b</b> とします。</li> -->
+<!--        <li> 特別なバッファとして、 -->
+<!-- 	    *scratch* バッファや、*Message* バッファがあります。 -->
+<!-- 	    </li> -->
+<!--       </ul> -->
+<!--       </li> -->
+<!-- </ul> -->
+
+<h3>gnuplot でグラフを作成し eps 形式で保存する </h3>
+<p>
+gnuplotのグラフを他のアプリケーションからも利用可能にするために、 
+gnuplotの画像出力を <a href="http://e-words.jp/w/EPS.html">eps</a> 
+(Encapsulated Post Script)形式のファイルとして出力します。
+<p>
+epsファイルは簡単にに文書に組み込むことができます。
+実際、次回の演習ではLatexを用いてグラフ入りの文書を作ります。
+
+
+<p><strong>まずは画面で確認</strong>
+<p>gnuplot で sin(x) と<br>
+<img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100&chco=0000000&chl=x,\ x-\frac{x^3}{6},\  x-\frac{x^3}{6}%2B\frac{x^5}{120}" /><br>
+のグラフを書きましょう。
+<!-- 　google 数式 -->
+<!-- <img src="http://chart.apis.google.com/chart?cht=tx&chs=1x0&chf=bg,s,65432100& -->
+<!-- chco=0000000&chl=\iota%28f,z_{0}%29=\frac{1}{2 \pi i}\oint\frac{dz}{z_{0}-f(z)" /> -->
+<pre>
+% gnuplot
+gnuplot> plot [-pi:pi] sin(x), x, x-x**3/6,x-x**3/6+x**5/120
+</pre>
+
+<p><strong>グラフをカスタマイズ</strong>
+<p>座標軸を表示させてみましょう。</p>
+<pre>
+gnuplot> set zeroaxis
+gnuplot> replot
+</pre>
+
+<p>(<b>set</b> は一般に、gnuplot に対して、さまざまな動作モードを変更するときに用います。)</p>
+<p>このグラフでよければ次に進みます。
+<p><strong> eps 形式のファイル作る</strong> </p>
+
+<pre>
+gnuplot> set term postscript eps color 22 <font color="#adff2f">・・・画像データの出力形式を eps に変更</font>
+</pre>
+<p>で gnuplot の出力形式が postscript eps 形式に変更されます（最後の 22 は文字サイズを 22 にするということです。）。<br>
+以降、グラフは「絵」としては出力されず eps 形式データ（文字によって絵を表す形式の一つ）として出力されます。
+</p>
+
+<p>つづいて</p>
+<pre>
+gnuplot> set output "taylor.eps" <font color="#adff2f">・・・画像データの出力先をファイル taylor.eps に変更</font>
+</pre>
+<p>で出力結果をファイル <tt>taylor.eps</tt> に出力するようになります。<br>
+これ以降画像データは画面に出力されないで、代わりにファイル taylor.eps として作成されます。<br></p>
+
+<p>つづいて <b>replot</b>コマンドを用いてグラフを描きましょう。</p>
+<pre>
+gnuplot> replot
+</pre>
+<p>これで４つの関数のグラフを描きましたが、それはファイル <tt>taylor.eps</tt> に eps 形式で出力されています（画面には出力されません）。</p>
+
+<p>
+gnuplot を quit で終了します。
+</p>
+<pre>
+gnuplot> quit
+%
+</pre>
+
+
+<p>
+<b>ls</b> コマンドを実行してみれば、新たに <tt>taylor.eps</tt> が作成されているのが確認できるはずです<br>
+出力された EPS ファイルの内容は <b>gv</b> コマンドで確認できます（<b>gv</b> は ps, eps 形式のファイルを画面に出力するアプリケーションです）。
+</p>
+<pre>
+% gv taylor.eps <font color="#adff2f">・・・ファイル taylor.eps の内容を画像として表示</font>
+</pre>
+<p>上の操作どおりできていれば、4つの関数のグラフが描けているはずです</p>
+
+<h3>epsファイルの印刷</h3>
+
+<li>プリンタへの出力<br>
+EPS形式、PS形式（プリンタに適応した形式）のファイルは<em>lp</em>コマンドでそのまま
+プリントアウトできます。
+<pre>
+% lp taylor.eps 
+</pre>
+</li>
+
+<h3>課題提出</h3>
+各自
+taylor.eps
+プリントアウトし、
+その紙の空いている所に<br>
+<pre class="source">
+情報処理演習(A2 or B2) 第4回課題<br>
+名前<br>
+学籍番号<br>
+</pre>
+を記入のうえ、演習時間内に提出。
+
+
+
+<hr>
+
+<A HREF="unix03.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix05.html">NEXT</A>
+
+
+</body>
+
+</html>
+

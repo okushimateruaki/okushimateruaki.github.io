@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>（第９回）コマンドライン引数</title>
+<body>
+</head>
+<A HREF="unix08.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix10.html">NEXT</A>
+<h2>（第９回）コマンドライン引数</h2>
+<h3>目標</h3>
+<p>
+コマンドライン引数とはmain 関数の引数のことです。
+実行するときに、
+コマンドラインからコマンドライン引数に値を与えることができます。
+<!-- <p>例として、実行ファイルa.outに100を与える場合は、ターミナルで -->
+<!-- <pre> -->
+<!-- % ./a.out 100  -->
+<!-- % -->
+<!-- </pre> -->
+<!-- <p>とタイプします。 -->
+コマンドライン引数を利用したC言語プログラムの作成と利用方法を学ぶことが今日の目的です。
+
+
+<h3>コマンドライン引数をもつプログラム</h3>
+<p>これまでは main関数を
+<pre class="source">
+main(){
+....
+</pre>
+<p>としてきましたが、ここを
+<pre class="source">
+main(int argc, char *argv[]){
+....
+</pre>
+<p>に変更します。これで準備完了です。argc, argvの意味ですが、
+argcはコマンドライン引数の数
+文字列配列argvにはコマンドライン引数が格納されます。例えば、
+<pre>
+% ./a.out 100 abc
+%
+</pre>
+<p>を実行すると、
+<pre class="source">
+argc=3; <font color="red">コマンドライン引数の数</font>
+argv[0]="./a.out";
+argv[1]="100";
+argv[2]="abc";
+</pre>
+<p>と、
+コマンドライン引数を介して、プログラムに値が渡されます。
+ここで、
+<ul>
+<li>argv[0]にはプログラム名が格納されていること
+<li>コマンドライン引数は常に文字列としてプログラムに取り込まれること
+</ul>
+<p>に注意して下さい。
+
+<!-- <p>文字列としてプログラムに取り込まれたargvを数値として利用するには、<br> -->
+<!-- 関数int atoi(文字列)、 -->
+<!-- double atof(文字列)等を用いて数値に変換します。 -->
+<!-- <pre class="source"> -->
+<!-- main(int argc, char *argv[]){ -->
+<!-- int i=atoi(argv[1]); -->
+<!-- printf("%d\n",i+1); -->
+<!-- } -->
+<!-- </pre> -->
+
+<h4>課題１</h4>
+<p>
+　以下のプログラムは、コマンドラインに入力された文字列の個数と、文字列を表示するプログラムです。
+</p>
+<pre class="source">
+#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[]){
+  int i;
+  
+  printf("文字列の個数 %d\n",argc);
+  for(i=0;i&lt;argc;i++)
+    printf("%d 番目の文字列 %s\n",i,argv[i]);
+  return 0;
+}
+</pre>
+<p>
+<strong>実行例</strong><br>
+<pre>
+% ./a.out This is a pen
+文字列の個数 5
+0 番目の文字列 ./a.out
+1 番目の文字列 This
+2 番目の文字列 is
+3 番目の文字列 a
+4 番目の文字列 pen
+%
+</pre>
+<p>
+<!-- <strong>解説</strong><br> -->
+<!-- <tt>main()</tt> 関数は２つの引数を取ります（これまでの演習では、コマンドラインから引数をとる -->
+<!-- ようなことはしなかったので、省略をしてきました）。<br> -->
+<!-- 一つ目の引数 <tt>argc</tt> はコマンドラインに入力された文字列の個数が代入されます。<br> -->
+<!-- 二つ目の引数 <tt>argv</tt> は入力されたコマンドラインの文字列（へのポインタ）の配列です。<br> -->
+
+
+<strong>課題</strong><br>
+  上記のソースコードを参考にして、コマンドラインに入力された文字列で０番目の文字列を除いた
+ものを逆順に表示するプログラムを作りなさい：
+<pre>
+% ./a.out This is a pen
+4 番目の文字列 pen
+3 番目の文字列 a
+2 番目の文字列 is
+1 番目の文字列 This
+% ./a.out This is a pen. And that is a pencil.
+9 番目の文字列 pencil.
+8 番目の文字列 a
+7 番目の文字列 is
+6 番目の文字列 that
+5 番目の文字列 And
+4 番目の文字列 pen.
+3 番目の文字列 a
+2 番目の文字列 is
+1 番目の文字列 This
+%
+</pre>
+</p>
+
+
+<h4>課題２</h4>
+<p>
+以下のプログラムは、ライブラリ関数 <b>atoi()</b> を用いることで、コマンドライン入力の文字列を数値に変換し、
+その値を２倍して表示するプログラムである。
+
+<pre class="source">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char *argv[]){
+  int i;
+  int n;
+	
+  for(i=1;i&lt;argc;i++){
+    n=atoi(argv[i]);
+    printf("%d\n",n*2);
+  }
+  return 0;
+}
+</pre>
+<p>
+<strong>実行例</strong><br>
+</p>
+<pre>
+% ./a.out 10 2 34 abc -5 3.5
+20
+4
+68
+0
+-10
+6
+%
+</pre>
+<p>
+<strong>解説</strong><br>
+　関数 <b>atoi()</b> は文字列を整数型(<b>int</b>)の数値に変換する関数です。これを利用するためには 
+<tt>#include &lt;stdlib.h&gt;</tt> をプログラムの先頭に書き加える必要があります。<br>
+　同様の処理をする関数に <b>atof()</b> 関数があります。これは文字列を実数型(<b>float</b>)に変換するものです。<br>
+　実行例を見ればわかるように、変換できない場合（数字でない場合）の戻り値は <tt>0</tt> になります。<br>
+<strong>課題</strong><br>
+　コマンドラインに入力された数字の和を計算し、その結果を表示するプログラムを作成せよ：
+</p>
+<pre>
+% ./a.out 1 2 3 4 5
+15
+%
+</pre>
+
+<h4>課題３</h4>
+<p>
+コマンドラインに入力された数字の平均値、分散を計算し、印字するプログラムを作成せよ。
+ただし数値は実数型で取り扱うこと<br>
+<em>平均・分散</em> 　n 個の数値 x<sub>1</sub>,...x<sub>n</sub> の
+平均 μ, 分散 σ<sup>2</sup>は、次のように与えられる：<br>
+μ=(x<sub>1</sub>+...+x<sub>n</sub>)/n<br>
+σ<sup>2</sup>=((x<sub>1</sub>-μ)<sup>2</sup>+...+(x<sub>n</sub>-μ)<sup>2</sup>)/n<br><br>
+<strong>実行例</strong><br>
+</p>
+<pre>
+% ./a.out 1.0 2.5 3 4.5 0.1 
+平均 2.220000 　分散 2.373600
+%
+</pre>
+
+<p><em>ヒント</em> 平均を求めるには、入力された数の和をいったん求めて、それを入力された数の個数で割ればよい。
+分散の計算も同様に、ただし (x<sub>i</sub>-μ)<sup>2</sup> の和を考える。</p>
+
+<h4>課題４</h4>
+<p>　３つの実数 x<sub>0</sub>, x<sub>1</sub>, dx を与えると
+<pre>
+plot [0:2*pi] [-1:1] sin(x+x<sub>0</sub>)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+x<sub>0</sub>+dx)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+x<sub>0</sub>+2dx)
+pause 0.5
+・
+・
+・
+plot [0:2*pi] [-1:1] sin(x+x<sub>1</sub>)
+</pre>
+のように印字するプログラムを作成せよ。つまり実行例としては
+<pre>
+%./a.out 5 6.5 0.25
+plot [0:2*pi] [-1:1] sin(x+5.00)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+5.25)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+5.50)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+5.75)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+6.00)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+6.25)
+pause 0.5
+plot [0:2*pi] [-1:1] sin(x+6.50)
+%
+</pre>
+<p>
+となるようなものである。
+</p>
+
+
+<h3>今日の提出課題</h3>
+<p>
+課題2で作成したプログラムを印刷して提出せよ。<br>
+</p>
+
+
+<hr>
+<A HREF="unix08.html">PREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix10.html">NEXT</A>
+</body>
+
+</html>

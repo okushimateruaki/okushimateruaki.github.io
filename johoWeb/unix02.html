@@ -1,0 +1,514 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>（２）UNIX の基礎</title>
+</head>
+<body>
+
+<A HREF="unix01.html">RREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix03.html">NEXT</A>
+
+
+<h2>（第２回）UNIX の基礎</h2> 
+
+
+<h3>今日の目標</h3>
+基礎的なUNIXコマンドが使えるようになることが今回の目標です。
+コマンドの使い方を忘れたときに、調べる方法についても学びます。
+
+<h3>ファイルとディレクトリ</h3>
+UNIX は全てがファイルから構成されているシステムです。
+UNIX でのファイルとは何であるのか解説します。
+<ul>
+ <li> ファイル<BR>
+   自分で作った文書やイラストなどに名前を付けてファイルとして保存するということは、
+   既に知っている人も多いと思います。
+   UNIXでは、データをファイルと呼ばれるもので管理します。
+<!-- しかし、それだけではなく、コンピュータを操作するためのコマンド -->
+<!-- (<tt>/bin/*</tt>, <tt>/sbin/*</tt>, <tt>/usr/bin/*</tt>)や、 -->
+実は、キーボードやマウス、ディスプレイ、
+プリンタなどといったデバイスも全てファイルとして扱われます
+(例：キーボード <tt>/dev/input/keyboard</tt>, マウス <tt>/dev/input/mice</tt>等,
+ディスプレー <tt>/dev/fb</tt>等, プリンタ <tt>/dev/lp0</tt>等)。<br>
+
+   ファイルには名前をつけることができ、
+   所有者やアクセス権という属性を持ちます。
+
+
+ <li> ディレクトリ<BR>
+   上に書いたように全てはファイルです。
+   ファイルの数は膨大なので、階層構造（ツリー構造）を実現することによって、<br>
+   人間にとっても、コンピュータにとっても
+   扱いやすいシステムになります。<br>
+   その階層構造を実現するための特別なファイルのことをディレクトリと呼びます。
+<!--       複数のファイルが同じ名前を持っている場合でも、<br> -->
+<!-- 			ファイルが属するディレクトリが異なれば、 -->
+<!-- 			それらを一意に指定することができます。</li> -->
+</ul>
+
+<h4>カレントディレクトリ</h4>
+ユーザが現在作業しているディレクトリをカレントディレクトリと呼びます。
+
+<li> <em>pwd</em> コマンド　−　カレントディレクトリ名（現在操作中のディレクトリ）を表示する。
+<pre>
+% pwd 
+/homer/se/tea/okushima　<font color="#adff2f">・・・各自違う結果になるはず</font>
+</pre>
+
+<li> <em>ls</em> コマンド −　ファイルリストを表示する。
+<pre>
+% ls
+% ls -a <font color="#adff2f">・・・隠しファイルも含む全てのファイルリストを表示</font>
+% ls -l <font color="#adff2f">・・・ファイルに関する詳細情報を表示</font>
+% ls -la
+</pre>
+
+<p>隠し（不可視）ファイルファイルとは、
+ピリオド"."で始まるファイルは隠しファイルである。<br>
+lsコマンドでみるには、オプション-aが必要。
+このように、コマンドの動作を変更する指令を「オプション」といい、
+コマンドの引数として指定します。
+      </p>
+ </li>
+
+
+<li> <em>cd</em> コマンド　−　カレントディレクトリの変更
+<p>
+例えば、Desktop という名前のディレクトリをカレントディレクトリとするには、
+<pre>% cd Desktop </pre>
+
+
+<li> <em>man</em> コマンド
+<p>UNIX には非常に多くのコマンドがあるため、すべてを把握するのは困難ですが、基本的なコマンドにはオンラインマニュアルが用意されています。オンラインマニュアルを使用するには、<em>man</em> というコマンドを用います。例えば、
+<pre>
+% man cat                                                     
+</pre>
+<p>と入力すると cat コマンドのマニュアルが表示されます。したがって man コマンド自身のマニュアルは、man man と入力すれば表示されます。</p>
+
+<p>マニュアルの次の行を表示するにはリターンキー、次のページを表示するに
+はスペースキーです。</p>
+
+
+<p>
+<table border="1" align="center" CELLSPACING="0" CELLPADDING="0">
+<tr>
+ <td WIDTH="50%"> 1 行スクロールアップ</td>
+ <td WIDTH="50%"> Enter キー</td>
+</tr>
+<tr>
+ <td> 1 ページスクロールアップ</td>
+ <td> Space キー</td>
+</tr>
+<tr>
+ <td> 1 ページ逆方向へスクロール</td>
+ <td> <b>b</b></td>
+</tr>
+<tr>
+ <td> 終了</td>
+ <td> <b>q</b>, <b>Q</b></td>
+</tr>
+</table>
+
+<!-- <h4>キーワード検索</h4> -->
+
+<p>また、行いたい操作がどのようなコマンドを使えばできるのかを知るには、
+<em>man -k</em> <i>keyword</i> とするとヒントが得られます。</p>
+
+<p>
+キーワード検索については、英文を英単語のキーワードで検索する方がヒットしやすいかもしれません。ファイルを複製(copy)をするコマンドを探すなら、次のように実行します。
+<pre>
+% man -k copy
+cp(1)                    - copy files
+cpio(1)                  - copy files to and from archives
+dd(1)                    - convert and copy a file
+memccpy(3)               - copy string until character found
+: --- 以下たくさん ---
+</pre>
+<p>目的のコマンド名がわかったら man cp などとして詳しい説明を読みます。
+</p>
+
+
+
+
+<h3>パス</h3>
+<p>ファイルを指定する時は、階層の一番上（ルートといい"<tt>/</tt>"で表現します），
+あるいはカレントディレクトリから、<br>
+そのファイルにたどり着くまでのディレクトリを"/"で区切りながら順にならべます。
+このようにファイルを指定する文字列を<em>パス</em>と呼びます。</p>
+<p>
+パスの例として、
+</p>
+<pre>
+/homer/se/tea/okushima/Examples/readme.txt
+</pre>
+<p>
+が意味するのは…<br>
+　ファイルシステムの一番根元のディレクトリ（ルートと呼ぶ）の中にある（ 一番先頭の<em>/</em> がそれを表す） <br>
+　<em>homer</em> というディレクトリの中にある<br>
+　<em>tea</em> というディレクトリの中にある<br>
+　<em>okushima</em> というディレクトリの中にある<br>
+　<em>Examples</em> というディレクトリの中にある<br>
+　<em>readme.txt</em> というファイル<br>
+<p>を指定しています．<br>
+この例のパスは<em>/</em>で始まっていることに注意してください。<br>
+
+もう一つの例として、
+</p>
+<pre>
+Examples/readme.txt
+</pre>
+<p>
+が意味するものを考えましょう。<br>
+これは<em>/</em>で始まっていないので、どこのディレクトリの中の <em>Examples</em>
+ディレクトリなのか分からないことになりますが、この場合は<br>
+<em>カレントディレクトリ</em>の中にある<em>Examples</em>を指定することになっています。<br>
+だからもしカレントディレクトリが <em>/homer/se/tea/okushima</em> と指定されていたら
+実際のパスは
+</p>
+<pre>
+/homer/se/tea/okushima/Examples/readme.txt
+</pre>
+<p>
+となりますが、もしカレントディレクトリが <em>/homer/se/tea/</em> となっていたら
+</p>
+<pre>
+/homer/se/tea/Examples/readme.txt
+</pre>
+<p>
+になります。<br>
+このように<em>/</em>で始まらないパスは、カレントディレクトリを基準として
+ファイルを指定するパスと理解されます。<br>
+カレントディレクトリを設定することで、本来長いパスを省略して書くことができます。
+<br>
+
+
+<!-- ちなみにインターネットのURLと概念も表現も同じになっています。</p> -->
+
+<p>特殊なファイル名として、"<B>.</B>" と "<B>..</B>" があります。
+"<B>.</B>" はカレントディレクトリ(ユーザが作業を行っているディレクトリ)を、"<B>..</B>" は 1 つ上の階層のディレクトリを表します。
+親ディレクトリに移動するには、
+<pre>
+% cd  ..
+</pre>
+
+
+<h3>
+UNIXコマンドの練習
+</h3>
+
+<p>カレントディレクトリのパスを調べるには <em>pwd</em>コマンドを使用します。
+<PRE>
+% pwd
+/homer/se/tea/okushima <font color="#adff2f">・・・/tea/okushimaのところ各自違う結果になるはず</font>
+</PRE>
+</p>
+
+
+
+<p>カレントディレクトリにあるファイルの一覧を表示するには <em>ls</em> コマンドを使用します。
+<PRE>
+% ls
+Mail_i         Wnn6         public_html     
+</PRE>
+</p>
+
+
+
+<p>ディレクトリの作成には <em>mkdir</em>コマンドを使用します。
+<pre>
+% mkdir training
+% ls
+Mail_i         Wnn6         public_html    training
+</pre></p>
+
+
+
+<p>ディレクトリへ移動するには<em>cd</em>コマンドを使用します。
+<PRE>
+% cd training    
+% pwd
+/homer/se/tea/okushima/training　<font color="#adff2f">・・・/tea/okushimaのところ各自違う結果になるはず</font>
+</PRE>
+
+
+
+<p>このディレクトリにあるファイルを確認しましょう。
+<PRE>
+% ls
+% ls -a
+./   ../
+</PRE>
+</p>
+
+<p>ls にオプション -a を与えると、全てのファイルを表示します。"<B>.</B>" はそのディレクトリ自身を示し、"<B>..</B>" はひとつ上のディレクトリを示します。ここでは、<BR>
+<B>.</B> = /homer/se/tea/okushima/training<BR>
+<B>..</B> = /homer/se/tea/okushima/<BR>
+となります。ls -a で表示されたものが "<B>.</B>" と "<B>..</B>" だけということは、何も入っていないディレクトリだということです。</p>
+
+
+
+<p>
+1階層上のディレクトリに遡るには、特別なディレクトリ名「..」を用います。
+<pre>
+% cd ..    
+% pwd
+/homer/se/tea/okushima<font color="#adff2f">・・・各自のホームディレクトリになっているはず</font>
+</pre>
+
+
+
+<p>ホームディレクトリに直接移動する方法は <em>cd ~</em> と入力します。「~」はホームディレクトリを意味する記号です。<br>
+（ホームディレクトリに移動することは<em>cd </em>のみ入力してもできます）
+
+<pre>
+% cd ../../
+% pwd
+/homer/se
+% cd ~
+% pwd
+/homer/se/tea/okushima<font color="#adff2f">・・・各自のホームディレクトリになっているはず</font>
+</pre>                                                             
+</p>
+
+
+<p>アカウント名 okushima (講師：奥島)のホームディレクトリに行くには
+<pre>
+% cd ~okushima
+% pwd
+/homer/se/tea/okushima<font color="#adff2f">・・・奥島のホームディレクトリになっているはず</font>
+</pre>
+<p>
+とします。「~」の後にユーザIDをつけると、そのユーザのホームディレクトリを意味します。<br>
+私のホームディレクトリ内のExamplesディレクトリ(/homer/se/tea/okushima/Examples　または　~okushima/Examples)<br>
+にサンプル等を置くので、適宜参考にしたりコピーして使ってください。</p>
+
+
+<p>ファイルのコピーをするのは <em>cp</em> コマンドです。<br>
+私（講師）のホームディレクトリに在るファイルを各自のホームディレクトリにコピーしてみましょう。
+
+<PRE>
+% cp ~okushima/Examples/readme.txt  ~/
+% cd <font color="#adff2f">・・・受講者のホームディレクトリに移動した</font>
+% ls
+readme.txt （その他のファイル）
+%                                                                 
+</PRE>
+</p>
+
+
+<p>このファイルの内容を見てみましょう。<em>cat</em>コマンドでファイルの内容を標準出力に渡します。
+<PRE>
+% cat readme.txt                                                  
+</PRE>
+</p>
+
+<p>
+自分のホームディレクトリにコピーしなくても、直接ファイルの中身を見ることもできます。<br>
+ファイル　~okushima/Examples/random.dat　の中身を見てみましょう。
+<PRE>
+% cat ~okushima/Examples/random.dat
+</PRE>
+
+<p>これは割と大きなファイルで1画面に収まりきらず、画面が一瞬で流れてしまったと思います。<br>
+このような場合は <em>less</em> コマンドを使うと便利です。<em>less</em> ではカーソルキーを使って画面をスクロールさせることができます。<br>
+終了させるには "<em>q</em>" を入力します。
+<pre>
+ % less ~okushima/Examples/random.dat
+</pre>
+</p>
+
+<p>ファイルの場所を移動をするのは <em>mv</em> コマンドです。<br>
+自分のホームディレクトリにあるreadme.txt をさっき作った training ディレクトリ（~/training）に移動してみましょう。
+<pre>
+% cd 
+% ls
+readme.txt ....
+% mv readme.txt ~/training/
+% cd ~/training
+% ls
+readme.txt
+</pre>
+</p>
+
+
+
+<p>ファイル名の変更も <em>mv</em> コマンドです。readme.txt を koreyome.txt という名前に変更してみましょう。
+<pre>
+% mv readme.txt koreyome.txt
+% ls
+koreyome.txt
+</pre>
+</p>
+
+<p>ファイルを削除するコマンドは <em>rm</em> です。
+<pre>
+% rm koreyome.txt
+% ls
+
+</pre>
+</p>
+
+<p>ディレクトリを削除するときはオプション <em>-r</em> です。（あるいは、 <em>rmdir</em>）
+<pre>
+% cd ~
+% rm -r training
+</pre>                                                             
+</p>
+
+
+<h3>アクセス権の変更</h3> 
+
+<p>ファイルやディレクトリのアクセス権の変更をします。UNIX では人に見られたくないファイルやディレクトリを他人にアクセスされないようにすることが簡単に出来ます。</p>
+
+<P>まず、ファイルやディレクトリのアクセス権を調べます。
+調べるには <em>ls</em> コマンドを用いますが、<em>-l</em> のオプションを併用します。</p>
+<PRE>
+% ls -l .cshrc
+-rwxr--r--    1 rst26158    teacher      1665  4月 12 16:35 .cshrc
+%                                                                 
+</PRE>
+<p>
+ここで、左端のカラム <em>-rwxr--r--</em> に注目します。<BR>
+この記号は <em>1+3+3+3</em> のグループに分けて読み取ります。
+各々のグループが示している意味は以下になります。
+</p>
+<ul>
+ <li> 左端の <em>1：</em> ファイルの場合 <em>-</em>、
+      ディレクトリの場合 <em>d</em> となる。</li>
+ <li> 二番目の <em>3：(user)</em> 自分のアクセス権      </li>
+ <li> 三番目の <em>3：(group)</em> 同じグループに属しているユーザーに対するアクセス権
+      例えば、先生であれば teacher</li>
+ <li> 四版目の <em>3：(other)</em> 違うグループに属しているユーザーに対するアクセス権</li>
+</ul>
+
+<p> 記号 r,w,x の意味は
+<table border="1" width="80%">
+<tr Bgcolor="#909090">
+<th width="20%">文字</th>
+<th width="20%">数値</th>
+<th width="60%">内容</th>
+</tr>
+<tr>
+<td>r</td>
+<td>4</td>
+<td>読みだし可(<em>r</em>eadable)</td>
+</tr>
+<tr>
+<td>w</td>
+<td>2</td>
+<td>書き込み可(<em>w</em>ritable)</td>
+</tr>
+<tr>
+<td>x</td>
+<td>1</td>
+<td>実行可能(e<em>x</em>ecutable)</td>
+</tr>
+</table>
+</p>
+
+
+<p>これらのアクセス権を変更するコマンドが <em>chmod</em> です。
+アクセス権は以下の規則で決められる数字を３桁に用いて表現します。
+</p>
+
+<p>
+<table border="1" width="80%" >
+<tr Bgcolor="#909090">
+<th width="20%">文字</th>
+<th width="20%">数値</th>
+<th width="60%">内容</th>
+</tr>
+<tr>
+<td>rwx</td>
+<td>7 (4+2+1)</td>
+<td>読み出し可＋書き込み可＋実行可能</td>
+</tr>
+<tr>
+<td>rw-</td>
+<td>6 (4+2)</td>
+<td>読み出し可＋書き込み可</td>
+</tr>
+<tr>
+<td>r-x</td>
+<td>5 (4+1)</td>
+<td>読み出し可＋実行可能</td>
+</tr>
+<tr>
+<td>-wx</td>
+<td>3 (2+1)</td>
+<td>書き込み可＋実行可能</td>
+</tr>
+</table>
+</p>
+
+<p>
+例えば、ファイル .cshrc を自分には実行・読み・書きの権限を与え、
+自分以外のユーザーには全く権限を与えないようにするには
+<PRE>
+% chmod 700 .cshrc
+</PRE>
+<p>としてやります。リストを見て、
+<PRE>
+% ls -l .cshrc
+-rwx-------    1 rst26158    teacher      1665  4月 12 16:35 .cshrc     
+%                                                                 
+</PRE>
+<p>左端のカラムが <em>-rwx-------</em> となっているか確認します。
+</p>
+
+<p>
+外部にホームページを公開しつつ、それ以外のファイルにアクセスできないよう
+にするためにには以下のコマンドを実行します。
+<PRE>
+% chmod 700 -R ~
+% chmod 755 -R ~/public_html
+% chmod 755  ~
+</PRE>
+<p>ここのchmodのオプション <b>-R</b>は
+再帰的(<b>R</b>ecursive)にそのディレクトリの中身も同じアクセス権に設定するオプションです。
+
+
+</ul>
+
+
+
+<h3>課題提出</h3>
+<p>課題：講師（奥島）のホームディレクトリ下のディレクトリExamplesにある隠しファイルを探し、
+そのファイル名とその内容を<a href="./index.html#kousi">奥島までメール</a>で提出せよ。<br>
+<pre class="source">
+メールの件名：情報処理演習(A2 or B2) 第２回課題
+氏名:
+学籍番号:
+ファイル名:
+内容: </pre>
+<p>提出期限：演習時間内<br>
+
+
+<h3>発展</h3>
+<ul>
+ <li> 
+      <A HREF="tcsh.html">高機能シェル (tcsh)</A><BR>
+      UNIX ではターミナルにコマンドを打ち込んで利用するのが基本です。
+      ですが、様々なコマンドを一字一句間違いなく入力するのは大変です。
+      tcsh にはコマンド入力を支援する為の強力な諸機能があります。</li>
+
+<li>インターネット上の情報
+<a href="http://itcweb.cc.affrc.go.jp/affrit/documents/guide/unix-nyumon">
+UNIX(Linux)入門
+</a>や
+<a href="http://www.k4.dion.ne.jp/~mms/unix/">
+UNIX入門〜初心者のためのUNIX/Linux講座〜
+</a>
+</ul>
+
+<hr>
+<A HREF="unix01.html">RREVIOUS</A> |
+<A HREF="index.html">TOP</A> |
+<A HREF="unix03.html">NEXT</A>
+</body>
+</html>
